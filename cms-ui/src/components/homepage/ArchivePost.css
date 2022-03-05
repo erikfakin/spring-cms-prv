@@ -1,7 +1,7 @@
 .archivePost {
   display: flex;
   flex-flow: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 1rem;
   width: calc(50% - 1rem);
   text-decoration: none;
@@ -25,10 +25,14 @@
 
 .archivePost__image {
   width: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: top;
   border-radius: 15px;
 }
 
 .archivePost__info {
+  width: 50%;
   text-align: left;
   margin-left: 2rem;
 }

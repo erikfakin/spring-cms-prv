@@ -1,8 +1,9 @@
 export const get = async (url) => {
   const res = await fetch(url)
   if (!res.ok) {
-    const message = `An error occured: ${res.status}`
-    throw new Error(message)
+    return {
+      error: res.status
+    }
   }
   return res.json()
 }
@@ -16,8 +17,7 @@ export const post = async (url, data) => {
     body: JSON.stringify({ ...data }),
   })
   if (!res.ok) {
-    const message = `An error occured: ${res.status}`
-    throw new Error(message)
+    return {error: res.status}
   }
   return res
 }
@@ -29,7 +29,9 @@ export const upload = async (url, file) => {
   })
   if (!res.ok) {
     const message = `An error occured: ${res.status}`
-    throw new Error(message)
+    return {
+      error: res.status
+    }
   }
   return res
 }

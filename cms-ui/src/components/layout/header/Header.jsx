@@ -13,7 +13,7 @@ const Header = () => {
           <Link className="header__navigation__link" to="/">
             Home
           </Link>
-          <Link className="header__navigation__link" to="/create-post">
+          <Link className="header__navigation__link" to="/edit-post">
             Create post
           </Link>
         </div>

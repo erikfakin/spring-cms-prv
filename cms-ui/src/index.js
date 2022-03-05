@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import SinglePostPage from "pages/SinglePostPage"
-import CreatePostPage from "pages/CreatePostPage"
+import EditPostPage from "pages/EditPostPage"
 import { Layout } from "components/layout"
 import Homepage from "pages/Homepage"
 import PageNotFound from "pages/PageNotFound"
@@ -14,8 +14,10 @@ ReactDOM.render(
       <Layout>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/posts/:postId" element={<SinglePostPage />} />
-          <Route path="/create-post/" element={<CreatePostPage />} />
+          <Route path="posts/:postId" element={<SinglePostPage />} />
+          <Route path="edit-post/" element={<EditPostPage />} >
+            <Route path=":postId" element={<EditPostPage />} />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Layout>

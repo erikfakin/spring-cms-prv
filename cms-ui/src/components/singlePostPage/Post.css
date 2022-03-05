@@ -13,9 +13,8 @@
 }
 .single-post__featured-image {
   margin: 3rem 0;
-  width: 100%;
-  aspect-ratio: 2;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 50vh;
   border-radius: 15px;
 }
 .single-post__info {

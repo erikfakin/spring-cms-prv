@@ -5,6 +5,9 @@
   font-size: 14px;
   padding: 15px;
   min-height: 50vh;
+  width: 66.66%;
+    border-radius: 10px;
+    margin-right: 1rem;
 }
 
 .RichEditor-editor {

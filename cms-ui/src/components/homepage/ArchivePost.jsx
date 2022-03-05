@@ -6,6 +6,7 @@ function ArchivePost({ post }) {
     <Link to={"/posts/" + post.id} className="archivePost">
       {post.featuredImage ? (
         <img
+        className="archivePost__image"
           src={post.featuredImage.src
             .substring(post.featuredImage.src.indexOf("uploads") - 1)
             .replace(/\\/, "/")}
