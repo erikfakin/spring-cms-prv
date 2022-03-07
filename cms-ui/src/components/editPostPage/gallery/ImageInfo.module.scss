@@ -1,0 +1,26 @@
+.imageInfo {
+  display: flex;
+  flex-flow: column;
+}
+.imageInfo__image {
+  width: 100%;
+  object-fit: contain;
+  height: 20rem;
+}
+.imageInfo__title {
+  margin: 1rem 0;
+  display: flex;
+  flex-flow: column;
+  input {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}
+.imageInfo__alt {
+  display: flex;
+  flex-flow: column;
+  input {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}

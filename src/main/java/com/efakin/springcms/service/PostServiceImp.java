@@ -50,6 +50,7 @@ public class PostServiceImp implements  PostService{
         postToUpdate.setDescription(post.getDescription());
         postToUpdate.setContent(post.getContent());
         postToUpdate.setFeaturedImage(post.getFeaturedImage());
+        postToUpdate.setCategory(post.getCategory());
 
         return postRepository.save(postToUpdate);
     }

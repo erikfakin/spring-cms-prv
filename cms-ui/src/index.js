@@ -7,6 +7,7 @@ import EditPostPage from "pages/EditPostPage"
 import { Layout } from "components/layout"
 import Homepage from "pages/Homepage"
 import PageNotFound from "pages/PageNotFound"
+import LoginPage from "pages/LoginPage"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,8 +15,9 @@ ReactDOM.render(
       <Layout>
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="posts/:postId" element={<SinglePostPage />} />
-          <Route path="edit-post/" element={<EditPostPage />} >
+          <Route path="edit-post/" element={<EditPostPage />}>
             <Route path=":postId" element={<EditPostPage />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
