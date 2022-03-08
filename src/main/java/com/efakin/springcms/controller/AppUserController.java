@@ -2,10 +2,14 @@ package com.efakin.springcms.controller;
 
 import com.efakin.springcms.entity.AppUser;
 import com.efakin.springcms.repository.AppUserRepository;
+import com.efakin.springcms.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -13,22 +17,24 @@ import java.util.List;
 public class AppUserController {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    AppUserService appUserService;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @GetMapping()
     public List<AppUser> getAllUsers (){
-        return appUserRepository.findAll();
+        return appUserService.findAll();
     }
 
     @PostMapping("/register")
     public void signUp(@RequestBody AppUser user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        appUserRepository.save(user);
+        appUserService.save(user);
     }
-//    @PostMapping("/refresh")
-//    public void refreshToken()
+    @PostMapping("/refresh")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
+        appUserService.refreshToken(request, response);
+
+    }
 
 }

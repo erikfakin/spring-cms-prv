@@ -58,7 +58,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         Date exp = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
         Key key = Keys.hmacShaKeyFor(KEY.getBytes());
-        String username = ((User) auth.getPrincipal()).getUsername();
+
         Claims claims = Jwts.claims().setSubject(((User) auth.getPrincipal()).getUsername());
         String token = Jwts.builder().setClaims(claims).signWith(key, SignatureAlgorithm.HS512).setExpiration(exp).compact();
         res.addHeader("Token", token);

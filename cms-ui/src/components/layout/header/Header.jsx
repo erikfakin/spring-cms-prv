@@ -22,8 +22,14 @@ const Header = () => {
           </Link>
           <button onClick={() => {
             auth.signout(() => {navigate(location)})
+           
             
           }}>Logout</button>
+          <button onClick={() => {
+          
+            auth.refreshToken();
+            
+          }}>Refresh token</button>
         </div>
       </div>
     </div>

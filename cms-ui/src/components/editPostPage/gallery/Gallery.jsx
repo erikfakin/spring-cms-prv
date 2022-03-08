@@ -11,7 +11,7 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
   const [images, setImages] = useState([])
   const [selectedImage, setSelectedImage] = useState()
   const [imageToUpload, setImageToUpload] = useState()
-  useEffect(async () => {
+  useEffect( () => {
     getData()
   }, [])
 
