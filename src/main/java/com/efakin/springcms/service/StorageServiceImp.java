@@ -1,10 +1,8 @@
 package com.efakin.springcms.service;
 
 import com.efakin.springcms.entity.Image;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,13 +11,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 @Service
-@Slf4j
 public class StorageServiceImp implements StorageService{
 
     @Value("${upload.path}")
+    private String folderLocation;
+    @Value("${upload.uploadFolder}")
     private String folder;
 
     @Autowired
@@ -28,10 +26,7 @@ public class StorageServiceImp implements StorageService{
     @Autowired
     private ImageService imageService;
 
-    @Override
-    public void init() {
 
-    }
 
     @Override
 
@@ -41,10 +36,9 @@ public class StorageServiceImp implements StorageService{
         //Upload the image
         byte[] bytes = file.getBytes();
         String fileName = file.getOriginalFilename();
-        Path path = Paths.get(folder + fileName);
-        Path relativePath = Paths.get("/uploads/" + fileName);
+        Path path = Paths.get(folderLocation + fileName);
+        Path relativePath = Paths.get(folder + fileName);
 
-        log.info(path.toString());
         Files.write(path, bytes);
 
         //Save the image in the database
@@ -56,22 +50,10 @@ public class StorageServiceImp implements StorageService{
     }
 
     @Override
-    public Stream<Path> loadAll() {
-        return null;
+    public void deleteFile(String title) throws IOException {
+        Path path = Paths.get(folderLocation + title);
+        Files.delete(path);
     }
 
-    @Override
-    public Path load(String filename) {
-        return null;
-    }
 
-    @Override
-    public Resource loadAsResource(String filename) {
-        return null;
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }

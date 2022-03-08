@@ -23,9 +23,12 @@ public class AppUserController {
         return appUserRepository.findAll();
     }
 
-    @PostMapping("/record")
+    @PostMapping("/register")
     public void signUp(@RequestBody AppUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         appUserRepository.save(user);
     }
+//    @PostMapping("/refresh")
+//    public void refreshToken()
+
 }

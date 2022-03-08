@@ -3,6 +3,7 @@ package com.efakin.springcms.service;
 import com.efakin.springcms.entity.Image;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface ImageService {
@@ -12,4 +13,6 @@ public interface ImageService {
     List<Image> getAllImages();
 
     Image getImageById(Long imageId);
+
+    void delete(Long imageId) throws IOException;
 }

@@ -35,6 +35,7 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
     const formData = new FormData()
     formData.append("file", image)
     upload(apiUrl + "/upload", formData).then((res) => {
+      console.log(res)
       if (res.ok) {
         getData()
       }

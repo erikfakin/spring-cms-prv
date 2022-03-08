@@ -35,4 +35,9 @@ public class CategoryServiceImp implements CategoryService{
         categoryToUpdate.setDescription(category.getDescription());
         return categoryRepository.save(categoryToUpdate);
     }
+
+    @Override
+    public void delete(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
+    }
 }

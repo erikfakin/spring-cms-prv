@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -28,5 +29,10 @@ public class ImageController {
     @PutMapping("/{imageId}")
     public Image updateImageInfoById(@PathVariable("imageId") Long imageId, @RequestBody Image image) throws FileNotFoundException {
         return imageService.updateImageInfoById(imageId, image);
+    }
+
+    @DeleteMapping("/{imageId}")
+    public void deleteImage(@PathVariable("imageId") Long imageId) throws IOException {
+        imageService.delete(imageId);
     }
 }

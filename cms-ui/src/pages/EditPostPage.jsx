@@ -5,12 +5,15 @@ import { EditorState, convertToRaw } from "draft-js"
 import draftToHtml from "draftjs-to-html"
 import { useEffect, useState } from "react"
 import { apiUrl } from "utils/constants/env"
-import "./EditPostPage.scss"
+import styles from "./EditPostPage.module.scss"
 import { useNavigate, useParams } from "react-router-dom"
 import { convertFromHTML } from "draft-js"
 import { ContentState } from "draft-js"
 import Message from "components/editPostPage/message/Message"
 import Select from "react-select"
+import TextInput from "components/editPostPage/textInput/TextInput"
+import SelectInput from "components/editPostPage/selectInput/SelectInput"
+import FeaturedImage from "components/editPostPage/featuredImage/FeaturedImage"
 
 function EditPostPage() {
   const { postId } = useParams()
@@ -23,6 +26,10 @@ function EditPostPage() {
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState()
   let navigate = useNavigate()
+
+  useEffect(() => {
+    getInitialData()
+  }, [postId])
 
   const getInitialData = async () => {
     const cats = await getProtected(apiUrl + "/categories")
@@ -55,10 +62,6 @@ function EditPostPage() {
     }
   }
 
-  useEffect(() => {
-    getInitialData()
-  }, [postId])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const rawContentState = convertToRaw(editorState.getCurrentContent())
@@ -85,82 +88,50 @@ function EditPostPage() {
 
       setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
       navigate("/edit-post/" + newPost.id)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (e) {
       console.log(e)
     }
   }
 
-  const handleEditorOnChange = (state) => {
-    setEditorState(state)
-  }
+
+
 
   return (
-    <div className="create-post-wrapper">
+    <div className={styles.editPostWrapper}>
       {notice && <Message message={notice} onClose={() => setNotice("")} />}
-      <div className="create-post">
-        <h1>Edit post</h1>
+      <h1 className={styles.editPost__pageTitle}>{postId ? "Edit post" : "Create post"}</h1>
+      <div className={styles.editPost}>
+
         <RichTxtEditor
-          className="create-post__content"
+          className={styles.editPost__content}
           editorState={editorState}
-          onChange={handleEditorOnChange}
+          onChange={state => setEditorState(state)}
         />
-        <div className="create-post__header">
-          <div className="create-post__header__info">
-            <label className="create-post__title">
-              Title
-              <input
-                type="text"
-                name="title"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-            </label>
-            <label className="create-post__description">
-              Description
-              <input
-                type="text"
-                name="description"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-              />
-            </label>
-            <label className="create-post__description">
-              Category
-              <Select
-                options={categories}
-                value={categories.filter(
-                  (category) => category.value === selectedCategory
-                )}
-                onChange={(e) => setSelectedCategory(e.value)}
-              />
-            </label>
+        <div className={styles.editPost__header}>
+          <div className={styles.editPost__header__info}>
+
+            <TextInput onChange={e => setTitle(e.target.value)} label="Title" value={title} />
+            <TextInput onChange={e => setDescription(e.target.value)} label="Description" value={description} />
+            <SelectInput
+              label="Category"
+              options={categories}
+              value={categories.filter(
+                (category) => category.value === selectedCategory
+              )}
+              onChange={(e) => setSelectedCategory(e.value)} />
+
           </div>
-          <div className="create-post__header__featured-image">
-            <label className="create-post__header__featured-image__label">
-              Featured Image
-              <div
-                className="create-post__header__featured-image__image-wrapper"
-                onClick={() => setShowGallery(true)}
-              >
-                {featuredImage ? (
-                  <img
-                    className="create-post__header__featured-image__image"
-                    src={featuredImage.src}
-                  />
-                ) : (
-                  <div>Set featured image</div>
-                )}
-              </div>
-            </label>
-          </div>
-          <button className="create-post__submit" onClick={handleSubmit}>
+          <FeaturedImage featuredImage={featuredImage} onClick={e => setShowGallery(true)} />
+
+          <button className={styles.editPost__submit} onClick={handleSubmit}>
             {postId ? "Update post" : "Create post"}
           </button>
         </div>
 
         {showGallery ? (
           <Gallery
-            className="create-post__gallery"
+            className={styles.editPost__gallery}
             setFeaturedImage={setFeaturedImage}
             setShowGallery={setShowGallery}
           />

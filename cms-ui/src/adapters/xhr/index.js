@@ -53,6 +53,7 @@ export const update = async (url, data) => {
 }
 
 export const upload = async (url, file) => {
+  console.log(localStorage.getItem("token"))
   const res = await fetch(url, {
     method: "POST",
     headers: {

@@ -1,0 +1,24 @@
+.label {
+    display: flex;
+    flex-flow: column;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin: 1rem 0;
+    padding: 1rem;
+    color: #999;
+    background-color: #f0f8ff;
+    input {
+        margin-top: 0.5rem;
+        border: none;
+        color: black;
+        outline: none;
+        background-color: #f0f8ff;
+    }
+}
+
+.title {
+    margin-top: 0;
+    input {
+      font-size: 2rem;
+    }
+  }

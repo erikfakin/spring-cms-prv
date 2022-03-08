@@ -3,6 +3,7 @@ package com.efakin.springcms.controller;
 import com.efakin.springcms.entity.Post;
 import com.efakin.springcms.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -33,6 +34,11 @@ public class PostController {
     @PutMapping("/{postId}")
     public Post updatePost(@PathVariable("postId") Long postId, @RequestBody Post post) {
         return postService.updatePost(postId, post);
+    }
+
+    @DeleteMapping("/{postId}")
+    public void deletePost(@PathVariable("postId") Long postId) {
+        postService.delete(postId);
     }
 
 

@@ -1,0 +1,46 @@
+
+.editPostWrapper{
+  margin: 3rem 0;
+  background-color: #fff;
+  padding: 3rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 25px;
+}
+.editPost {
+  
+  display: flex;
+}
+.editPost__pageTitle{
+  margin-bottom: 3rem;
+}
+.editPost__header__featuredImage__image {
+  max-height: 30rem;
+}
+.editPost__header__info {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+
+
+.editPost__title {
+  margin-top: 0;
+  input {
+    font-size: 2rem;
+  }
+}
+.editPost__header {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  width: 33.33%;
+}
+.editPost__submit {
+  background: royalblue;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+}

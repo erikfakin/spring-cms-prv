@@ -1,21 +1,21 @@
 import { post } from "adapters/xhr"
+import { useAuth } from "context/authContext"
 import { useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import { apiUrl } from "utils/constants/env"
 
 const LoginPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  const handleSubmit = async () => {
-    const res = await post(apiUrl + "/login", {
-      username,
-      password,
-    })
-    localStorage.removeItem("token")
-    console.log(localStorage)
+  const auth = useAuth()
+  let location = useLocation();
+  let navigate = useNavigate();
 
-    localStorage.setItem("token", res.headers.get("token"))
-    console.log(localStorage.getItem("token"))
+  let from = location.state?.from?.pathname || "/";
+
+  const handleSubmit = async () => {
+    auth.signin(username, password, () => navigate(from, { replace: true }))
   }
 
   return (

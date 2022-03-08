@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom"
+import { useAuth } from "context/authContext"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 import "./Header.css"
 
 const Header = () => {
+  let navigate = useNavigate()
+  let location = useLocation()
+  const auth = useAuth()
   return (
     <div className="header-wrapper">
       <div className="header">
@@ -16,6 +20,10 @@ const Header = () => {
           <Link className="header__navigation__link" to="/edit-post">
             Create post
           </Link>
+          <button onClick={() => {
+            auth.signout(() => {navigate(location)})
+            
+          }}>Logout</button>
         </div>
       </div>
     </div>

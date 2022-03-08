@@ -4,21 +4,14 @@ import "./ArchivePost.css"
 function ArchivePost({ post }) {
   return (
     <Link to={"/posts/" + post.id} className="archivePost">
-      {post.featuredImage ? (
         <img
         className="archivePost__image"
-          src={post.featuredImage.src
+          src={post?.featuredImage?.src
             .substring(post.featuredImage.src.indexOf("uploads") - 1)
-            .replace(/\\/, "/")}
-          alt=""
+            .replace(/\\/, "/") || "/uploads/placeholder.jpg"}
+          alt={post?.featuredImage?.alt || "placeholder image"}
         />
-      ) : (
-        <img
-          className="archivePost__image"
-          src="/uploads/placeholder.jpg"
-          alt="placeholder"
-        />
-      )}
+      
 
       <div className="archivePost__info">
         <h2 className="archivePost__info__title">{post.title}</h2>

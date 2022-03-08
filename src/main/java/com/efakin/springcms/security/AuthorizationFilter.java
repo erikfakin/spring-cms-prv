@@ -43,7 +43,8 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken authenticate ( HttpServletRequest request ) {
         String token = request.getHeader(HEADER_NAME);
-        log.info(token);
+        log.info("TOKEN: " + token);
+        log.info("REQUEST: " + request.toString());
         if (token != null) {
 
             Claims user = Jwts.parserBuilder()

@@ -15,4 +15,6 @@ public interface PostService {
     List<Post> getAllPosts();
 
     Post updatePost(Long postId, Post post);
+
+    void delete(Long postId);
 }

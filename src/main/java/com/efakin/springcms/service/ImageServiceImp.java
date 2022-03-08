@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,6 +16,7 @@ public class ImageServiceImp implements ImageService{
 
     @Autowired
     private ImageRepository imageRepository;
+
 
     @Override
     public Image updateImageInfoById(Long id, Image image) throws FileNotFoundException {
@@ -55,5 +57,11 @@ public class ImageServiceImp implements ImageService{
     @Override
     public Image getImageById(Long imageId) {
         return imageRepository.getById(imageId);
+    }
+
+    @Override
+    public void delete(Long imageId) throws IOException {
+        Optional<Image> imageToDelete = imageRepository.findById(imageId);
+        imageRepository.deleteById(imageId);
     }
 }
