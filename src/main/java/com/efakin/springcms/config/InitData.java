@@ -44,14 +44,14 @@ public class InitData implements ApplicationRunner {
 
 
         Post post1 = new Post();
-        post1.setTitle("Post1");
-        post1.setDescription("Descrišptiopn #1");
-        post1.setContent("Long cointent 1");
+        post1.setTitle("a ");
+        post1.setDescription("a #1");
+        post1.setContent("Long content 1");
         post1.setCategory(category1);
         Post post2 = new Post();
-        post2.setTitle("Post1");
+        post2.setTitle("b 1");
         post2.setDescription("Descrišptiopn #1");
-        post2.setContent("Long cointent 1");
+        post2.setContent("Long content 2");
         post2.setCategory(category2);
         postService.savePost(post1);
         postService.savePost(post2);

@@ -1,0 +1,13 @@
+.dashboardPageWrapper {
+}
+.dashboardPage {
+  display: flex;
+}
+.dashboardPage__menu {
+  width: 25%;
+  display: flex;
+  flex-flow: column;
+}
+.dashboardPage__edit {
+  width: 75%;
+}

@@ -1,8 +1,10 @@
 package com.efakin.springcms.service;
 
 import com.efakin.springcms.entity.Post;
-import org.springframework.stereotype.Service;
+import com.efakin.springcms.models.GetAllPostsResponse;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -12,9 +14,11 @@ public interface PostService {
 
     Post savePost(Post post) throws UnsupportedEncodingException;
 
-    List<Post> getAllPosts();
+    GetAllPostsResponse getAllPosts(int page, String orderBy, String order, int perPage);
 
     Post updatePost(Long postId, Post post);
 
     void delete(Long postId);
+
+    GetAllPostsResponse searchAllPosts(String searchString);
 }

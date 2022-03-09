@@ -1,16 +1,25 @@
-import { get, getProtected, post } from 'adapters/xhr';
-import { createContext, useState, useContext } from 'react'
-import { apiUrl } from 'utils/constants/env';
+import { get, getProtected, post } from "adapters/xhr"
+import { createContext, useState, useContext, useEffect } from "react"
+import { isExpired } from "react-jwt"
+import { apiUrl } from "utils/constants/env"
 
-let AuthContext = createContext(null);
+let AuthContext = createContext(null)
+
+//25 minutes
+const REFRESH_INTERVAL = 1000 * 60 * 25
 
 export const AuthProvider = ({ children }) => {
-  let [user, setUser] = useState(localStorage.getItem("user"));
+  let [user, setUser] = useState(localStorage.getItem("user"))
   const [token, setToken] = useState(localStorage.getItem("token"))
 
-  let refreshTimeout;
+  let refreshTimeout
 
-
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token && !isExpired(token)) {
+      refreshToken()
+    }
+  }, [])
 
   let signin = async (username, password, callback) => {
     const res = await post(apiUrl + "/login", {
@@ -22,35 +31,33 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", username)
     localStorage.setItem("token", res.headers.get("token"))
     // auto refresh token every 25 minutes 1000*60*25
-    refreshTimeout = setTimeout(refreshToken, 1000*60*25)
+    refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
     console.log(refreshTimeout)
     callback()
-  };
+  }
 
   let signout = (callback) => {
-    setUser()
-    setToken()
+    setUser("")
+    setToken("")
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     clearTimeout(refreshTimeout)
-    console.log(refreshTimeout)
     callback()
-  };
+  }
 
   const refreshToken = async () => {
-    const res = await post(apiUrl+"/users/refresh")
+    const res = await post(apiUrl + "/users/refresh")
     setToken(res.headers.get("token"))
     localStorage.setItem("token", res.headers.get("token"))
     clearTimeout(refreshTimeout)
-    refreshTimeout = setTimeout(refreshToken, 1000*60*25)
-    console.log(refreshTimeout)
+    refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
   }
 
-  let value = { user,token , signin, signout, refreshToken };
+  let value = { user, token, signin, signout, refreshToken }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return useContext(AuthContext)
 }

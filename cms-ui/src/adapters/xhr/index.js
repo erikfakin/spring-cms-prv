@@ -69,3 +69,17 @@ export const upload = async (url, file) => {
   }
   return res
 }
+
+export const deleteItem = async (url) => {
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+  if (!res.ok) {
+    return { error: res.status }
+  }
+  return res
+}

@@ -20,16 +20,25 @@ const Header = () => {
           <Link className="header__navigation__link" to="/edit-post">
             Create post
           </Link>
-          <button onClick={() => {
-            auth.signout(() => {navigate(location)})
-           
-            
-          }}>Logout</button>
-          <button onClick={() => {
-          
-            auth.refreshToken();
-            
-          }}>Refresh token</button>
+          <Link className="header__navigation__link" to="/dashboard">
+            Dashboard
+          </Link>
+          <button
+            onClick={() => {
+              auth.signout(() => {
+                navigate(location)
+              })
+            }}
+          >
+            Logout
+          </button>
+          <button
+            onClick={() => {
+              auth.refreshToken()
+            }}
+          >
+            Refresh token
+          </button>
         </div>
       </div>
     </div>

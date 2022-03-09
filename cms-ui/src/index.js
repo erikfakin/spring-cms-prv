@@ -10,23 +10,47 @@ import PageNotFound from "pages/PageNotFound"
 import LoginPage from "pages/LoginPage"
 import RequireAuth from "components/requireAuth/RequireAuth"
 import { AuthProvider } from "context/authContext"
+import DashboardPage from "pages/DashboardPage"
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="posts/:postId" element={<SinglePostPage />} />
-          <Route path="edit-post/" element={<RequireAuth><EditPostPage /></RequireAuth>}>
-            <Route path=":postId" element={<RequireAuth><EditPostPage /></RequireAuth>} />
-          </Route>
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="posts/:postId" element={<SinglePostPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <RequireAuth>
+                  <DashboardPage />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="edit-post/"
+              element={
+                <RequireAuth>
+                  <EditPostPage />
+                </RequireAuth>
+              }
+            >
+              <Route
+                path=":postId"
+                element={
+                  <RequireAuth>
+                    <EditPostPage />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

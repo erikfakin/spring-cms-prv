@@ -1,0 +1,17 @@
+.pageSelector {
+  display: flex;
+}
+
+.pageSelector__button {
+  margin: 0.2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.pageSelector__current {
+  color: #3f51b5;
+  background: white;
+  border: 1px solid #3f51b5;
+}
