@@ -22,12 +22,12 @@ public class PostController {
     private ModelMapper modelMapper;
 
     @GetMapping("")
-    public GetAllPostsResponse getAllPosts(@RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "date") String orderBy, @RequestParam(required = false, defaultValue = "desc") String order, @RequestParam(required = false, defaultValue = "10") int perPage) {
+    public GetAllPostsResponse getAllPosts(@RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "updatedAt") String orderBy, @RequestParam(required = false, defaultValue = "desc") String order, @RequestParam(required = false, defaultValue = "10") int perPage) {
         return postService.getAllPosts(page, orderBy, order, perPage);
     }
     @GetMapping("/search")
-    public GetAllPostsResponse searchAllPosts(@RequestParam String q) {
-        return postService.searchAllPosts(q);
+    public GetAllPostsResponse searchAllPosts(@RequestParam String q, @RequestParam int page, @RequestParam(required = false, defaultValue = "10") int perPage) {
+        return postService.searchAllPosts(q, page, perPage);
     }
 
     @GetMapping("/{postId}")

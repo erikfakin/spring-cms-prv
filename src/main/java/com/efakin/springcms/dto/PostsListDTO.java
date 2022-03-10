@@ -29,5 +29,7 @@ public class PostsListDTO {
 
     private Date createdAt;
 
+    private Date updatedAt;
+
 
 }

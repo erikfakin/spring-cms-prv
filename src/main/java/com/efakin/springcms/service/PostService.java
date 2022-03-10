@@ -20,5 +20,5 @@ public interface PostService {
 
     void delete(Long postId);
 
-    GetAllPostsResponse searchAllPosts(String searchString);
+    GetAllPostsResponse searchAllPosts(String searchString, int page, int perPage);
 }

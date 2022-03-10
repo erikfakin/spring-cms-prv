@@ -1,23 +1,25 @@
 package com.efakin.springcms.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @Entity
+@Indexed
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @FullTextField
     private String title;
 
     private String description;
 
+    @FullTextField
     @Column(columnDefinition = "text")
     private String content;
 

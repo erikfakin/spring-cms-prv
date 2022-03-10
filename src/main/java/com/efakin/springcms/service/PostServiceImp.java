@@ -5,6 +5,8 @@ import com.efakin.springcms.entity.Post;
 import com.efakin.springcms.models.GetAllPostsResponse;
 import com.efakin.springcms.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
+
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,18 +92,38 @@ public class PostServiceImp implements  PostService{
 
     }
 
-    @Override
-    public GetAllPostsResponse searchAllPosts(String searchString) {
-        List<Post> postsWithContent = postRepository.findByContentContainingIgnoreCase(searchString);
-        List<Post> postsWithTitle = postRepository.findByTitleContainingIgnoreCase(searchString);
+//    @Override
+//    public GetAllPostsResponse searchAllPosts(String searchString, int page, int perPage) {
+//
+//        Page postsPage = postRepository.searchPosts(searchString, PageRequest.of(page -1, perPage));
+//        log.info(postsPage.toString());
+//
+//        List<Post> posts = postsPage.toList();
+//        int totalPages = postsPage.getTotalPages();
+//
+//        GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();
+//        getAllPostsResponse.setTotalPages(totalPages);
+//        getAllPostsResponse.setCurrentPage(page);
+//        getAllPostsResponse.setPosts(posts.stream().map(post -> modelMapper.map(post, PostsListDTO.class))
+//                .collect(Collectors.toList()));
+//
+//        return getAllPostsResponse;
+//    }
 
-        postsWithTitle.removeAll(postsWithContent);
-        postsWithContent.addAll(postsWithTitle);
+        @Override
+    public GetAllPostsResponse searchAllPosts(String searchString, int page, int perPage) {
 
-        List<Post> posts= new ArrayList<>(postsWithContent);
-
+        List<Post> posts = postRepository.search(searchString, page, perPage);
         log.info(posts.toString());
-        return new GetAllPostsResponse();
 
+        GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();
+        getAllPostsResponse.setTotalPages(1);
+        getAllPostsResponse.setCurrentPage(page);
+        getAllPostsResponse.setPosts(posts.stream().map(post -> modelMapper.map(post, PostsListDTO.class))
+                .collect(Collectors.toList()));
+
+        return getAllPostsResponse;
     }
+
+
 }

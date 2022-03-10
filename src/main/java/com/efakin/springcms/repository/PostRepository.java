@@ -7,12 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, PostRepositoryExt {
     boolean existsByUrl(String url);
-
-
-    List<Post> findByContentContainingIgnoreCase(String searchString);
-    List<Post> findByTitleContainingIgnoreCase(String searchString);
-
-
 }
