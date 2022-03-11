@@ -3,15 +3,15 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import DeleteCategory from "./DeleteCategory"
 
-const DashboardCategory = ({ category, setShowEditCategory }) => {
+const DashboardCategory = ({ category, onEditClick }) => {
   
   return (
     <div className="dashboardPost">
 
-      {showEditCategory? <EditCategory category={category} setShowEditCategory={setShowEditCategory} />: ""}
+      
       <div className="dashboardPost__title"> {category.title}</div>
       <div className="dashboardPost__title"> {category.description}</div>
-      <button onClick={setShowEditCategory}>Edit</button>
+      <button onClick={() => onEditClick(category)}>Edit</button>
       <DeleteCategory category={category} />
     </div>
   )

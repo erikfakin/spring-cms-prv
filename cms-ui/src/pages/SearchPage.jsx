@@ -10,6 +10,7 @@ const SearchPage = () => {
     const [posts, setPosts] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [page, setPage] = useState(searchParams.get("page") || 1)
+    const [totalPosts, setTotalPosts] = useState(0)
 
     const query = searchParams.get("q")
     const perPage = searchParams.get("perPage") || 10
@@ -26,6 +27,7 @@ const SearchPage = () => {
         console.log(res)
         setPosts(res.posts)
         setTotalPages(res.totalPages)
+        setTotalPosts(res.totalPosts)
     }
 
     useEffect(() => {
@@ -35,6 +37,7 @@ const SearchPage = () => {
 
     return <div>
         <h1>{`Results for: ${query}`}</h1>
+        <p>Total results: {totalPosts}</p>
         <div className="searchPage__list">
             {posts.map(post => <ArchivePost key={post.id} post={post} />
 
