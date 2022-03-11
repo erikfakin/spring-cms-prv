@@ -11,6 +11,8 @@ import LoginPage from "pages/LoginPage"
 import RequireAuth from "components/requireAuth/RequireAuth"
 import { AuthProvider } from "context/authContext"
 import DashboardPage from "pages/DashboardPage"
+import CategoryPostsPage from "pages/CategoryPostsPage"
+import SearchPage from "pages/SearchPage"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +21,8 @@ ReactDOM.render(
         <Layout>
           <Routes>
             <Route path="/" element={<Homepage />} />
+            <Route path="/category/:categoryTitle" element={<CategoryPostsPage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="posts/:postId" element={<SinglePostPage />} />
             <Route

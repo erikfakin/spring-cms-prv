@@ -4,9 +4,10 @@ import { apiUrl } from "utils/constants/env"
 
 const DeleteCategory = ({ category }) => {
   const [showConfirm, setShowConfirm] = useState(false)
+  
 
   const handleDeleteCategory = () => {
-    deleteItem(apiUrl + "/categorys/" + category.id)
+    deleteItem(apiUrl + "/categories/" + category.id)
   }
 
   return (

@@ -48,6 +48,7 @@ public class InitData implements ApplicationRunner {
         post1.setDescription("a #1");
         post1.setContent("Long content 1");
         post1.setCategory(category1);
+        post1.setPinned(true);
         Post post2 = new Post();
         post2.setTitle("b 1");
         post2.setDescription("Descrišptiopn #1");

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { formatDate } from "utils/helpers/date"
 import "./ArchivePost.css"
 
 function ArchivePost({ post }) {
@@ -16,6 +17,8 @@ function ArchivePost({ post }) {
       <div className="archivePost__info">
         <h2 className="archivePost__info__title">{post.title}</h2>
         <p className="archivePost__info__description">{post.description}</p>
+        <p>{formatDate(post.updatedAt)}</p>
+        <Link to={"/category/"+post.category.title}>{post.category.title}</Link>
       </div>
     </Link>
   )

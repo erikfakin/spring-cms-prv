@@ -8,7 +8,7 @@ const Post = ({ post }) => {
       <Link to={"/edit-post/" + post.id}>Edit post</Link>
       <h1 className="single-post__title">{post.title}</h1>
       <p className="singlee-post__description">{post.description}</p>
-      <p className="singlee-post__category">{post.category.title}</p>
+      <Link to={"/category/" + post.category.title} className="singlee-post__category">{post.category.title}</Link>
       {post.featuredImage ? (
         <img
           className="single-post__featured-image"

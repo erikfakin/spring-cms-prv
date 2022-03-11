@@ -6,6 +6,7 @@ import { useState } from "react"
 const DashboardPage = () => {
   const [showPosts, setShowPosts] = useState(true)
   const [showCategories, setShowCategories] = useState(false)
+  
 
   return (
     <div className={styles.dashboardPageWrapper}>

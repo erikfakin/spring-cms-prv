@@ -44,6 +44,8 @@ public class Post {
     @Column(nullable = false)
     private Date updatedAt;
 
+    private boolean pinned;
+
     @PrePersist
     private void onCreate() {
         createdAt = new Date();

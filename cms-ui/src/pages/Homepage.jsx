@@ -4,6 +4,7 @@ import { apiUrl } from "utils/constants/env"
 import { get } from "adapters/xhr"
 import Select from "react-select"
 import PageSelector from "components/homepage/PageSelector"
+import PinnedPosts from "components/pinnedPosts/PinnedPosts"
 
 const Homepage = () => {
   const [posts, setPosts] = useState([])
@@ -12,6 +13,7 @@ const Homepage = () => {
   const [totalPages, setTotalPages] = useState(1)
   const [orderBy, setOrderBy] = useState("createdAt")
   const [order, setOrder] = useState("desc")
+  const [pinnedPosts, setPinnedPosts] = useState([])
 
   const orderOptions = [
     {
@@ -33,7 +35,16 @@ const Homepage = () => {
   ]
 
   const fetchPosts = async () => {
-    const res = await get(
+    const pinnedPostsRes = await get(
+      apiUrl +
+        "/posts/pinned"
+    )
+
+    setPinnedPosts(pinnedPostsRes)
+    console.log(pinnedPostsRes)
+
+    
+    const postsRes = await get(
       apiUrl +
         "/posts/?page=" +
         page +
@@ -42,9 +53,9 @@ const Homepage = () => {
         "&order=" +
         order
     )
-    console.log(res)
-    setPosts(res.posts)
-    setTotalPages(res.totalPages)
+    console.log(postsRes)
+    setPosts(postsRes.posts)
+    setTotalPages(postsRes.totalPages)
   }
 
   const handleOrderingChange = (e) => {
@@ -65,7 +76,9 @@ const Homepage = () => {
   return (
     <div className="home-wrapper">
       <div className="home">
-        <h1>Latest Posts</h1>
+        <h1>Pinned Posts</h1>
+        <PinnedPosts pinnedPosts={pinnedPosts}/>
+        <h1>All Posts</h1>
         {error ? <p>{error}</p> : ""}
         <div className="home__ordering">
           Order by:

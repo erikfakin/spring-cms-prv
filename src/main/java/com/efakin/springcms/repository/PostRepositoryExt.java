@@ -1,6 +1,7 @@
 package com.efakin.springcms.repository;
 
 import com.efakin.springcms.entity.Post;
+import com.efakin.springcms.models.GetAllPostsResponse;
 
 import java.util.List;
 
@@ -8,5 +9,5 @@ public interface PostRepositoryExt {
 
 
 
-    List<Post> search(String terms, int page, int perPage);
+    GetAllPostsResponse search(String terms, int page, int perPage);
 }

@@ -61,12 +61,14 @@ public class PostServiceImp implements  PostService{
         }
 
         Pageable sorting = PageRequest.of(page  - 1, perPage, sort);
-        Page postsPage = postRepository.findAll(sorting);
+        Page<Post> postsPage = postRepository.findAll(sorting);
         List<Post> posts = postsPage.toList();
         int totalPages = postsPage.getTotalPages();
+        Long totalPosts = postsPage.getTotalElements();
 
         GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();
         getAllPostsResponse.setTotalPages(totalPages);
+        getAllPostsResponse.setTotalPosts(totalPosts);
         getAllPostsResponse.setCurrentPage(page);
         getAllPostsResponse.setPosts(posts.stream().map(post -> modelMapper.map(post, PostsListDTO.class))
                 .collect(Collectors.toList()));
@@ -92,37 +94,44 @@ public class PostServiceImp implements  PostService{
 
     }
 
-//    @Override
-//    public GetAllPostsResponse searchAllPosts(String searchString, int page, int perPage) {
-//
-//        Page postsPage = postRepository.searchPosts(searchString, PageRequest.of(page -1, perPage));
-//        log.info(postsPage.toString());
-//
-//        List<Post> posts = postsPage.toList();
-//        int totalPages = postsPage.getTotalPages();
-//
-//        GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();
-//        getAllPostsResponse.setTotalPages(totalPages);
-//        getAllPostsResponse.setCurrentPage(page);
-//        getAllPostsResponse.setPosts(posts.stream().map(post -> modelMapper.map(post, PostsListDTO.class))
-//                .collect(Collectors.toList()));
-//
-//        return getAllPostsResponse;
-//    }
 
         @Override
     public GetAllPostsResponse searchAllPosts(String searchString, int page, int perPage) {
 
-        List<Post> posts = postRepository.search(searchString, page, perPage);
+        return postRepository.search(searchString, page, perPage);
+    }
+
+    @Override
+    public GetAllPostsResponse getAllPostsByCategory(String categoryTitle, int page, String orderBy, String order, int perPage) {
+
+        Sort sort = Sort.by(orderBy).descending();
+
+        if (order.equalsIgnoreCase("asc")) {
+            sort = sort.ascending();
+        }
+
+        Pageable sorting = PageRequest.of(page  - 1, perPage, sort);
+        log.info(categoryTitle);
+        Page<Post> postsPage = postRepository.findByCategoryTitleIgnoreCase(categoryTitle, sorting);
+        List<Post> posts = postsPage.toList();
         log.info(posts.toString());
+        int totalPages = postsPage.getTotalPages();
 
         GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();
-        getAllPostsResponse.setTotalPages(1);
+        getAllPostsResponse.setTotalPages(totalPages);
         getAllPostsResponse.setCurrentPage(page);
         getAllPostsResponse.setPosts(posts.stream().map(post -> modelMapper.map(post, PostsListDTO.class))
                 .collect(Collectors.toList()));
 
         return getAllPostsResponse;
+    }
+
+    @Override
+    public List<PostsListDTO> getAllPinnedPosts() {
+        List<Post> posts = postRepository.findAllByPinned(true);
+        List<PostsListDTO> dtoPosts = posts.stream().map(post -> modelMapper.map(post, PostsListDTO.class))
+                .collect(Collectors.toList());
+        return dtoPosts;
     }
 
 

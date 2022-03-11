@@ -1,10 +1,9 @@
 package com.efakin.springcms.service;
 
+import com.efakin.springcms.dto.PostsListDTO;
 import com.efakin.springcms.entity.Post;
 import com.efakin.springcms.models.GetAllPostsResponse;
 
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -21,4 +20,8 @@ public interface PostService {
     void delete(Long postId);
 
     GetAllPostsResponse searchAllPosts(String searchString, int page, int perPage);
+
+    GetAllPostsResponse getAllPostsByCategory(String categoryTitle, int page, String orderBy, String order, int perPage);
+
+    List<PostsListDTO> getAllPinnedPosts();
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,6 +26,12 @@ public class PostController {
     public GetAllPostsResponse getAllPosts(@RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "updatedAt") String orderBy, @RequestParam(required = false, defaultValue = "desc") String order, @RequestParam(required = false, defaultValue = "10") int perPage) {
         return postService.getAllPosts(page, orderBy, order, perPage);
     }
+
+    @GetMapping("/pinned")
+    public List<PostsListDTO> getAllPinnedPosts() {
+        return postService.getAllPinnedPosts();
+    }
+
     @GetMapping("/search")
     public GetAllPostsResponse searchAllPosts(@RequestParam String q, @RequestParam int page, @RequestParam(required = false, defaultValue = "10") int perPage) {
         return postService.searchAllPosts(q, page, perPage);
@@ -33,6 +40,11 @@ public class PostController {
     @GetMapping("/{postId}")
     public Post getPostByName(@PathVariable("postId") Long postId) {
         return postService.getPostById(postId);
+    }
+    
+    @GetMapping("/category/{categoryTitle}")
+    public GetAllPostsResponse getAllPostsByCategory(@PathVariable("categoryTitle") String categoryTitle, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "updatedAt") String orderBy, @RequestParam(required = false, defaultValue = "desc") String order, @RequestParam(required = false, defaultValue = "10") int perPage) {
+        return postService.getAllPostsByCategory(categoryTitle, page, orderBy, order, perPage);
     }
 
     @PostMapping()

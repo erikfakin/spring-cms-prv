@@ -5,6 +5,7 @@ import styles from "./DashboardPost.module.scss"
 const DashboardPost = ({ post }) => {
   return (
     <tr className={styles.dashboardPost}>
+      <td>{post.id}</td>
       <td>
         <img
           className={styles.dashboardPost__image}

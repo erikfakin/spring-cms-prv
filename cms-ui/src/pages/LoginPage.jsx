@@ -18,6 +18,13 @@ const LoginPage = () => {
     auth.signin(username, password, () => navigate(from, { replace: true }))
   }
 
+  const handleOnKeyDown = e => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+    
+  }
+
   return (
     <div className="login">
       <label className="login__username">
@@ -25,6 +32,7 @@ const LoginPage = () => {
           type="text"
           name="username"
           onChange={(e) => setUsername(e.target.value)}
+          onKeyDown={handleOnKeyDown}
         />
       </label>
       <label className="login__password">
@@ -32,6 +40,7 @@ const LoginPage = () => {
           type="password"
           name="password"
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleOnKeyDown}
         />
       </label>
       <button className="login__submit" onClick={handleSubmit}>

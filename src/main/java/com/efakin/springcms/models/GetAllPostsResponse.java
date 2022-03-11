@@ -11,6 +11,7 @@ import java.util.List;
 public class GetAllPostsResponse {
 
     private int totalPages;
+    private Long totalPosts;
     private int currentPage;
     private List<PostsListDTO> posts;
 }

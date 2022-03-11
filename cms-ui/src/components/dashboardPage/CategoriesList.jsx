@@ -5,6 +5,7 @@ import DashboardCategory from "./DashboardCategory"
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([])
+  const [showEditCategory, setShowEditCategory] = useState(false)
 
   const getInitialData = async () => {
     setCategories(await getProtected(apiUrl + "/categories"))
@@ -14,8 +15,9 @@ const CategoriesList = () => {
   }, [])
   return (
     <div className="categoriesList">
+      <button>Add new category</button>
       {categories.map((category) => (
-        <DashboardCategory category={category} />
+        <DashboardCategory category={category} setShowEditCategory={setShowEditCategory}/>
       ))}
     </div>
   )
