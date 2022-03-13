@@ -62,8 +62,12 @@
   display: flex;
   flex-flow: column;
   font-weight: bold;
+  text-decoration: underline;
+  width: fit-content;
+  cursor: pointer;
   input {
     margin-top: 1rem;
+    display: none;
   }
 }
 .gallery__footer {

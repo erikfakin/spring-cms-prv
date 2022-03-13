@@ -1,9 +1,30 @@
 .dashboardPost {
+  td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+  }
+}
+.dashboardPost__id {
+  text-align: center;
+}
+.dashboardPost__image {
+  height: 3rem;
+  object-fit: contain;
 }
 .dashboardPost__title {
 }
-
-.dashboardPost__image {
-  height: 3rem;
-  object-fit: cover;
+.dashboardPost__edit {
+  text-align: center;
+  button {
+    cursor: pointer;
+  }
+}
+.dashboardPost__edit__icon {
+  height: 1.3rem;
+}
+.dashboardPost__delete {
+  text-align: center;
+  button {
+    cursor: pointer;
+  }
 }

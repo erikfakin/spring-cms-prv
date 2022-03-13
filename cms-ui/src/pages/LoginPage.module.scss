@@ -1,0 +1,19 @@
+.login {
+  display: flex;
+  flex-flow: column;
+  max-width: 30rem;
+  margin: auto;
+}
+.login__username {
+}
+.login__password {
+}
+.login__submit {
+  background: royalblue;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}

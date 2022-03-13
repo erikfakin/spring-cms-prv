@@ -15,27 +15,39 @@ import TextInput from "components/editPostPage/textInput/TextInput"
 import SelectInput from "components/editPostPage/selectInput/SelectInput"
 import FeaturedImage from "components/editPostPage/featuredImage/FeaturedImage"
 
+import SubmitButton from "components/shared/buttons/SubmitButton"
+import CreateCategory from "components/shared/forms/CreateCategory"
+import PinnedCheckbox from "components/shared/inputs/PinnedCheckbox"
+
 function EditPostPage() {
   const { postId } = useParams()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [featuredImage, setFeaturedImage] = useState()
   const [showGallery, setShowGallery] = useState(false)
+  const [showCreateCategory, setShowCreateCategory] = useState(false)
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [notice, setNotice] = useState("")
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState()
+  const [pinned, setPinned] = useState(false)
+
   let navigate = useNavigate()
 
   useEffect(() => {
-    getInitialData()
+    getData()
   }, [postId])
 
-  const getInitialData = async () => {
-    const cats = await getProtected(apiUrl + "/categories")
-    if (cats) {
+  const handleCreateCategory = (category) => {
+    getCategories()
+    setSelectedCategory(category.id)
+  }
+  const getCategories = async () => {
+    const res = await get(apiUrl + "/categories")
+    console.log(res)
+    if (res) {
       setCategories(
-        cats.map((category) => {
+        res.map((category) => {
           return {
             value: category.id,
             label: category.title,
@@ -43,7 +55,10 @@ function EditPostPage() {
         })
       )
     }
+  }
 
+  const getData = async () => {
+    getCategories()
     if (postId) {
       const post = await get(apiUrl + "/posts/" + postId)
       setTitle(post.title)
@@ -53,6 +68,7 @@ function EditPostPage() {
       const initialState = ContentState.createFromBlockArray(blocks)
       setEditorState(EditorState.createWithContent(initialState))
       setSelectedCategory(post.category.id)
+      setPinned(post.pinned)
     } else {
       setTitle("")
       setDescription("")
@@ -78,7 +94,10 @@ function EditPostPage() {
         category: {
           id: selectedCategory,
         },
+        pinned,
       }
+
+      console.log(data)
 
       const res = postId
         ? await update(apiUrl + "/posts/" + postId, data)
@@ -88,45 +107,70 @@ function EditPostPage() {
 
       setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
       navigate("/edit-post/" + newPost.id)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0, behavior: "smooth" })
     } catch (e) {
       console.log(e)
     }
   }
 
-
-
-
   return (
     <div className={styles.editPostWrapper}>
       {notice && <Message message={notice} onClose={() => setNotice("")} />}
-      <h1 className={styles.editPost__pageTitle}>{postId ? "Edit post" : "Create post"}</h1>
+      {showCreateCategory && (
+        <CreateCategory
+          onSubmit={handleCreateCategory}
+          onClose={() => {
+            setShowCreateCategory(false)
+          }}
+        />
+      )}
+      <h1 className={styles.editPost__pageTitle}>
+        {postId ? "Edit post" : "Create post"}
+      </h1>
       <div className={styles.editPost}>
-
         <RichTxtEditor
           className={styles.editPost__content}
           editorState={editorState}
-          onChange={state => setEditorState(state)}
+          onChange={(state) => setEditorState(state)}
         />
         <div className={styles.editPost__header}>
           <div className={styles.editPost__header__info}>
-
-            <TextInput onChange={e => setTitle(e.target.value)} label="Title" value={title} />
-            <TextInput onChange={e => setDescription(e.target.value)} label="Description" value={description} />
+            <TextInput
+              onChange={(e) => setTitle(e.target.value)}
+              label="Title"
+              value={title}
+            />
+            <TextInput
+              onChange={(e) => setDescription(e.target.value)}
+              label="Description"
+              value={description}
+            />
             <SelectInput
               label="Category"
               options={categories}
               value={categories.filter(
                 (category) => category.value === selectedCategory
               )}
-              onChange={(e) => setSelectedCategory(e.value)} />
-
+              onChange={(e) => setSelectedCategory(e.value)}
+            />
+            <button
+              className={styles.editPost__createCategory}
+              onClick={() => setShowCreateCategory(true)}
+            >
+              + add new category
+            </button>
           </div>
-          <FeaturedImage featuredImage={featuredImage} onClick={e => setShowGallery(true)} />
 
-          <button className={styles.editPost__submit} onClick={handleSubmit}>
+          <PinnedCheckbox checked={pinned} onClick={() => setPinned(!pinned)} />
+
+          <FeaturedImage
+            featuredImage={featuredImage}
+            onClick={(e) => setShowGallery(true)}
+          />
+
+          <SubmitButton onClick={handleSubmit}>
             {postId ? "Update post" : "Create post"}
-          </button>
+          </SubmitButton>
         </div>
 
         {showGallery ? (

@@ -1,17 +1,23 @@
+import { useAuth } from "context/authContext"
 import { Link } from "react-router-dom"
 import { formatDate } from "utils/helpers/date"
-import "./Post.css"
+import styles from "./Post.module.scss"
 
 const Post = ({ post }) => {
+  const auth = useAuth()
   return (
     <>
-      <Link to={"/edit-post/" + post.id}>Edit post</Link>
-      <h1 className="single-post__title">{post.title}</h1>
-      <p className="singlee-post__description">{post.description}</p>
-      <Link to={"/category/" + post.category.title} className="singlee-post__category">{post.category.title}</Link>
+      {auth.isSignedIn ? (
+        <Link to={"/edit-post/" + post.id}>Edit post</Link>
+      ) : (
+        ""
+      )}
+      <h1 className={styles.singlePost__title}>{post.title}</h1>
+      <p className={styles.singlePost__description}>{post.description}</p>
+
       {post.featuredImage ? (
         <img
-          className="single-post__featured-image"
+          className={styles.singlePost__featuredImage}
           src={post.featuredImage.src
             .substring(post.featuredImage.src.indexOf("uploads") - 1)
             .replace(/\\/, "/")}
@@ -19,23 +25,26 @@ const Post = ({ post }) => {
         />
       ) : (
         <img
-          className="single-post__featured-image"
+          className={styles.singlePost__featuredImage}
           src="/uploads/placeholder.jpg"
           alt=""
         />
       )}
 
-      <div className="single-post__info">
-        <h4 className="single-post__info__posted-by">
-          Posted by: {post.author}
-        </h4>
-        <p className="single-post__info__updated-at">
-          {formatDate(post.updatedAt)}
+      <div className={styles.singlePost__info}>
+        <Link
+          to={"/category/" + post.category.title}
+          className={styles.singlePost__info__category}
+        >
+          Posted in {post.category.title}
+        </Link>
+        <p className={styles.singlePost__info__updatedAt}>
+          on {formatDate(post.updatedAt)}
         </p>
       </div>
 
       <div
-        className="single-post__content"
+        className={styles.singlePost__content}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </>

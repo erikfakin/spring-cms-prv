@@ -1,0 +1,31 @@
+.dashboardCategory {
+  td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+  }
+}
+.dashboardCategory__id {
+  text-align: center;
+}
+.dashboardCategory__title {
+}
+.dashboardCategory__description {
+}
+.dashboardCategory__edit {
+  text-align: center;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+.dashboardCategory__edit__icon {
+  height: 1.2rem;
+}
+.dashboardCategory__delete {
+  text-align: center;
+  button {
+    cursor: pointer;
+  }
+}

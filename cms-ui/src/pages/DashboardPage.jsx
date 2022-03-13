@@ -6,13 +6,13 @@ import { useState } from "react"
 const DashboardPage = () => {
   const [showPosts, setShowPosts] = useState(true)
   const [showCategories, setShowCategories] = useState(false)
-  
 
   return (
     <div className={styles.dashboardPageWrapper}>
       <div className={styles.dashboardPage}>
         <div className={styles.dashboardPage__menu}>
           <button
+            className={showPosts ? styles.dashboardPage__menu__active : ""}
             onClick={() => {
               setShowPosts(true)
               setShowCategories(false)
@@ -21,6 +21,7 @@ const DashboardPage = () => {
             Posts
           </button>
           <button
+            className={showCategories ? styles.dashboardPage__menu__active : ""}
             onClick={() => {
               setShowPosts(false)
               setShowCategories(true)

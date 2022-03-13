@@ -9,7 +9,7 @@ let AuthContext = createContext(null)
 const REFRESH_INTERVAL = 1000 * 60 * 25
 
 export const AuthProvider = ({ children }) => {
-  let [user, setUser] = useState(localStorage.getItem("user"))
+  const [user, setUser] = useState(localStorage.getItem("user"))
   const [token, setToken] = useState(localStorage.getItem("token"))
 
   let refreshTimeout
@@ -21,7 +21,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
-  let signin = async (username, password, callback) => {
+  const isSignedIn = token && !isExpired(token)
+
+  const signin = async (username, password, callback) => {
     const res = await post(apiUrl + "/login", {
       username,
       password,
@@ -36,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     callback()
   }
 
-  let signout = (callback) => {
+  const signout = (callback) => {
     setUser("")
     setToken("")
     localStorage.removeItem("user")
@@ -53,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
   }
 
-  let value = { user, token, signin, signout, refreshToken }
+  const value = { user, token, signin, signout, refreshToken, isSignedIn }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

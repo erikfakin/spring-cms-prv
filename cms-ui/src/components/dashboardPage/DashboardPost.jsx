@@ -1,24 +1,36 @@
 import { Link } from "react-router-dom"
-import DeletePost from "./DeletePost"
 import styles from "./DashboardPost.module.scss"
+import DeleteButton from "components/shared/buttons/DeleteButton"
+import { apiUrl } from "utils/constants/env"
+import editIcon from "static/icons/edit.svg"
 
-const DashboardPost = ({ post }) => {
+const DashboardPost = ({ post, onDelete }) => {
   return (
     <tr className={styles.dashboardPost}>
-      <td>{post.id}</td>
+      <td className={styles.dashboardPost__id}>{post.id}</td>
       <td>
         <img
           className={styles.dashboardPost__image}
-          src={post.image ? post.image.url : "/uploads/placeholder.jpg"}
+          src={
+            post.featuredImage
+              ? post.featuredImage.src
+              : "/uploads/placeholder.jpg"
+          }
           alt=""
         />
       </td>
       <td className={styles.dashboardPost__title}> {post.title}</td>
-      <td>
-        <Link to={"/edit-post/" + post.id}>Edit</Link>{" "}
+      <td className={styles.dashboardPost__edit}>
+        <Link to={"/edit-post/" + post.id}>
+          <img
+            className={styles.dashboardPost__edit__icon}
+            src={editIcon}
+            alt="edit post"
+          />
+        </Link>{" "}
       </td>
-      <td>
-        <DeletePost post={post} />
+      <td className={styles.dashboardPost__delete}>
+        <DeleteButton onDelete={onDelete} url={apiUrl + "/posts/" + post.id} />
       </td>
     </tr>
   )

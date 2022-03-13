@@ -7,6 +7,7 @@ import com.efakin.springcms.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 
 
+import org.hibernate.criterion.Order;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,16 +50,20 @@ public class PostServiceImp implements  PostService{
         }
 
         post.setUrl(postUrl);
+        log.info(post.toString());
         return postRepository.save(post);
     }
 
     @Override
     public GetAllPostsResponse getAllPosts(int page, String orderBy, String order, int perPage) {
-        Sort sort = Sort.by(orderBy).descending();
-
-        if (order.equalsIgnoreCase("asc")) {
-            sort = sort.ascending();
+        Sort.Order sortOrder;
+        if (order.equalsIgnoreCase("asc")){
+            sortOrder = new Sort.Order(Sort.Direction.ASC, orderBy).ignoreCase();
+        } else {
+            sortOrder = new Sort.Order(Sort.Direction.DESC, orderBy).ignoreCase();
         }
+
+        Sort sort = Sort.by(sortOrder);
 
         Pageable sorting = PageRequest.of(page  - 1, perPage, sort);
         Page<Post> postsPage = postRepository.findAll(sorting);
@@ -84,6 +89,7 @@ public class PostServiceImp implements  PostService{
         postToUpdate.setContent(post.getContent());
         postToUpdate.setFeaturedImage(post.getFeaturedImage());
         postToUpdate.setCategory(post.getCategory());
+        postToUpdate.setPinned(post.isPinned());
 
         return postRepository.save(postToUpdate);
     }

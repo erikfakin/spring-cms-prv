@@ -7,7 +7,20 @@
   width: 25%;
   display: flex;
   flex-flow: column;
+  button {
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+  }
+}
+.dashboardPage__menu__active {
+  color: royalblue;
 }
 .dashboardPage__edit {
+  display: flex;
+  flex-flow: column;
   width: 75%;
 }

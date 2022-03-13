@@ -3,6 +3,9 @@ import EditCategory from "components/editCategory/EditCategory"
 import { useEffect, useState } from "react"
 import { apiUrl } from "utils/constants/env"
 import DashboardCategory from "./DashboardCategory"
+import styles from "./CategoriesList.module.scss"
+import SubmitButton from "components/shared/buttons/SubmitButton"
+import CreateCategory from "components/shared/forms/CreateCategory"
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([])
@@ -13,8 +16,7 @@ const CategoriesList = () => {
     setCategories(await getProtected(apiUrl + "/categories"))
   }
 
-
-  useEffect(() => console.log(categories),[categories])
+  useEffect(() => console.log(categories), [categories])
 
   const handleEditClick = (category) => {
     setEditCategory(category)
@@ -31,11 +33,35 @@ const CategoriesList = () => {
   }, [])
   return (
     <div className="categoriesList">
-      {showEditCategory? <EditCategory category={editCategory} onEditCloseClick={handleEditCloseClick} onSubmit={getData}/>: ""}
-      <button onClick={() => setShowEditCategory(true)}>Add new category</button>
-      {categories.map((category) => (
-        <DashboardCategory category={category} onEditClick={handleEditClick} />
-      ))}
+      {showEditCategory ? (
+        <CreateCategory
+          category={editCategory}
+          onSubmit={getData}
+          onClose={handleEditCloseClick}
+        />
+      ) : (
+        ""
+      )}
+
+      <SubmitButton onClick={() => setShowEditCategory(true)}>
+        + add new category{" "}
+      </SubmitButton>
+      <table className={styles.categoriesList}>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+
+        {categories?.map((category) => (
+          <DashboardCategory
+            category={category}
+            onEditClick={handleEditClick}
+          />
+        ))}
+      </table>
     </div>
   )
 }

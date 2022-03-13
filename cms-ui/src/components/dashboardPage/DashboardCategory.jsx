@@ -1,19 +1,30 @@
-import EditCategory from "components/editCategory/EditCategory"
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import DeleteCategory from "./DeleteCategory"
+import styles from "./DashboardCategory.module.scss"
+import DeleteButton from "components/shared/buttons/DeleteButton"
+import { apiUrl } from "utils/constants/env"
+import editIcon from "static/icons/edit.svg"
 
 const DashboardCategory = ({ category, onEditClick }) => {
-  
   return (
-    <div className="dashboardPost">
+    <tr className={styles.dashboardCategory}>
+      <td className={styles.dashboardCategory__id}>{category.id}</td>
 
-      
-      <div className="dashboardPost__title"> {category.title}</div>
-      <div className="dashboardPost__title"> {category.description}</div>
-      <button onClick={() => onEditClick(category)}>Edit</button>
-      <DeleteCategory category={category} />
-    </div>
+      <td className={styles.dashboardCategory__title}> {category.title}</td>
+      <td className={styles.dashboardCategory__description}>
+        {category.description}
+      </td>
+      <td className={styles.dashboardCategory__edit}>
+        <button onClick={() => onEditClick(category)}>
+          <img
+            className={styles.dashboardCategory__edit__icon}
+            src={editIcon}
+            alt="edit category"
+          />
+        </button>
+      </td>
+      <td className={styles.dashboardCategory__delete}>
+        <DeleteButton url={apiUrl + "/categories/" + category.id} />
+      </td>
+    </tr>
   )
 }
 

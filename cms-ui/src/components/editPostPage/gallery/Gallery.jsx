@@ -11,7 +11,7 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
   const [images, setImages] = useState([])
   const [selectedImage, setSelectedImage] = useState()
   const [imageToUpload, setImageToUpload] = useState()
-  useEffect( () => {
+  useEffect(() => {
     getData()
   }, [])
 
@@ -80,7 +80,7 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
           </button>
 
           <label className={styles.gallery__upload}>
-            Upload new image
+            + upload new image
             <input
               onChange={handleSubmit}
               type="file"

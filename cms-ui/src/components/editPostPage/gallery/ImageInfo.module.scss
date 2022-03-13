@@ -1,11 +1,15 @@
 .imageInfo {
   display: flex;
   flex-flow: column;
+  height: 100%;
+}
+.imageInfo__imageWrapper {
+  height: 30vh;
 }
 .imageInfo__image {
   width: 100%;
   object-fit: contain;
-  height: 20rem;
+  height: 100%;
 }
 .imageInfo__title {
   margin: 1rem 0;

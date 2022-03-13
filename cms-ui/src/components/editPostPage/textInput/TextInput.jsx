@@ -1,18 +1,20 @@
-import styles from './TextInput.module.scss'
+import styles from "./TextInput.module.scss"
 
-const TextInput = ({ label, value, onChange }) => {
-    return (
-        <label className={`${styles.label} ${label === 'Title' ? styles.title: ""}`}>
-            {label}
-            <input
-                
-                type="text"
-                name={label}
-                onChange={onChange}
-                value={value}
-            />
-        </label>
-    )
+const TextInput = ({ label, value, onChange, onKeyDown }) => {
+  return (
+    <label
+      className={`${styles.label} ${label === "Title" ? styles.title : ""}`}
+    >
+      {label}
+      <input
+        type="text"
+        name={label}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        value={value}
+      />
+    </label>
+  )
 }
 
 export default TextInput

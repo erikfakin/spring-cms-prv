@@ -1,5 +1,7 @@
 import { get } from "adapters/xhr"
+import SubmitButton from "components/shared/buttons/SubmitButton"
 import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import Select from "react-select"
 import { apiUrl } from "utils/constants/env"
 import DashboardPost from "./DashboardPost"
@@ -12,6 +14,8 @@ const PostsList = () => {
   const [orderBy, setOrderBy] = useState("createdAt")
   const [order, setOrder] = useState("desc")
   const [perPage, setPerPage] = useState(100)
+
+  const navigate = useNavigate()
 
   const orderOptions = [
     {
@@ -32,39 +36,52 @@ const PostsList = () => {
     },
   ]
 
+  const handleDelete = () => {
+    getData()
+  }
+
   const handleOrderingChange = (e) => {
     const selectedOrder = e.value
     setOrderBy(selectedOrder.split("-")[0])
     setOrder(selectedOrder.split("-")[1])
   }
 
-  const getInitialData = async () => {
-    const res = await get(apiUrl +
-      "/posts/?page=" +
-      page +
-      "&orderBy=" +
-      orderBy +
-      "&order=" +
-      order +
-      "&perPage=" + perPage)
+  const getData = async () => {
+    const res = await get(
+      apiUrl +
+        "/posts/?page=" +
+        page +
+        "&orderBy=" +
+        orderBy +
+        "&order=" +
+        order +
+        "&perPage=" +
+        perPage
+    )
 
     setPosts(res.posts)
     setTotalPages(res.totalPages)
   }
   useEffect(() => {
-    getInitialData()
+    getData()
   }, [order, orderBy, perPage, page])
   return (
     <>
-      <div className="home__ordering">
-        Order by:
-        <Select
-          options={orderOptions}
-          defaultValue={orderOptions[0]}
-          onChange={handleOrderingChange}
-        />
+      <div className={styles.postsList__header}>
+        <SubmitButton onClick={() => navigate("/edit-post")}>
+          + create new post
+        </SubmitButton>
+
+        <div className={styles.postsList__header__sorting}>
+          Order by:
+          <Select
+            options={orderOptions}
+            defaultValue={orderOptions[0]}
+            onChange={handleOrderingChange}
+          />
+        </div>
       </div>
-      <table className={styles.postsList}>
+      <table className={styles.postsList__table}>
         <tr>
           <th>ID</th>
           <th>Image</th>
@@ -74,7 +91,7 @@ const PostsList = () => {
         </tr>
         {console.log(posts)}
         {posts?.map((post) => (
-          <DashboardPost post={post} />
+          <DashboardPost post={post} onDelete={handleDelete} />
         ))}
       </table>
     </>

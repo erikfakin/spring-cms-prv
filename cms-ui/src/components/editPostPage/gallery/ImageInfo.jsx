@@ -18,7 +18,7 @@ const ImageInfo = ({ image }) => {
   const handleSubmit = () => {
     const e = update(apiUrl + "/images/" + image.id, {
       title,
-      alt
+      alt,
     })
 
     console.log(e)
@@ -27,7 +27,9 @@ const ImageInfo = ({ image }) => {
   console.log(image)
   return (
     <div className={styles.imageInfo}>
-      <img className={styles.imageInfo__image} src={image?.src} />
+      <div className={styles.imageInfo__imageWrapper}>
+        <img className={styles.imageInfo__image} src={image?.src} />
+      </div>
       <label className={styles.imageInfo__title}>
         Title
         <input
@@ -51,7 +53,7 @@ const ImageInfo = ({ image }) => {
           }}
         />
       </label>
-      {changed? <button onClick={handleSubmit}>Update</button> :""}
+      {changed ? <button onClick={handleSubmit}>Update</button> : ""}
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { get } from "adapters/xhr"
 import Select from "react-select"
 import PageSelector from "components/homepage/PageSelector"
 import PinnedPosts from "components/pinnedPosts/PinnedPosts"
+import styles from "./Homepage.module.scss"
 
 const Homepage = () => {
   const [posts, setPosts] = useState([])
@@ -35,15 +36,11 @@ const Homepage = () => {
   ]
 
   const fetchPosts = async () => {
-    const pinnedPostsRes = await get(
-      apiUrl +
-        "/posts/pinned"
-    )
+    const pinnedPostsRes = await get(apiUrl + "/posts/pinned")
 
     setPinnedPosts(pinnedPostsRes)
     console.log(pinnedPostsRes)
 
-    
     const postsRes = await get(
       apiUrl +
         "/posts/?page=" +
@@ -53,7 +50,6 @@ const Homepage = () => {
         "&order=" +
         order
     )
-    console.log(postsRes)
     setPosts(postsRes.posts)
     setTotalPages(postsRes.totalPages)
   }
@@ -74,27 +70,35 @@ const Homepage = () => {
   }, [])
 
   return (
-    <div className="home-wrapper">
-      <div className="home">
-        <h1>Pinned Posts</h1>
-        <PinnedPosts pinnedPosts={pinnedPosts}/>
-        <h1>All Posts</h1>
-        {error ? <p>{error}</p> : ""}
-        <div className="home__ordering">
-          Order by:
-          <Select
-            options={orderOptions}
-            defaultValue={orderOptions[0]}
-            onChange={handleOrderingChange}
-          />
-        </div>
+    <div className={styles.homeWrapper}>
+      <div className={styles.home}>
+        <section className={styles.home__section}>
+          <h1>Pinned Posts</h1>
+          <PinnedPosts pinnedPosts={pinnedPosts} />
+        </section>
 
-        <ArchivePosts posts={posts} />
-        <PageSelector
-          setPage={setPage}
-          totalPages={totalPages}
-          currentPage={page}
-        />
+        <section className={styles.home__section}>
+          <div className={styles.home__section__header}>
+            <h1>All Posts</h1>
+            <div className={styles.home__ordering}>
+              Order by:
+              <Select
+                options={orderOptions}
+                defaultValue={orderOptions[0]}
+                onChange={handleOrderingChange}
+              />
+            </div>
+          </div>
+
+          {error ? <p>{error}</p> : ""}
+
+          <ArchivePosts posts={posts} />
+          <PageSelector
+            setPage={setPage}
+            totalPages={totalPages}
+            currentPage={page}
+          />
+        </section>
       </div>
     </div>
   )

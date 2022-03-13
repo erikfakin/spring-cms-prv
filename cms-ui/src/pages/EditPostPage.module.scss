@@ -1,5 +1,4 @@
-
-.editPostWrapper{
+.editPostWrapper {
   margin: 3rem 0;
   background-color: #fff;
   padding: 3rem;
@@ -7,22 +6,18 @@
   border-radius: 25px;
 }
 .editPost {
-  
   display: flex;
 }
-.editPost__pageTitle{
+.editPost__pageTitle {
   margin-bottom: 3rem;
 }
 .editPost__header__featuredImage__image {
-  
 }
 .editPost__header__info {
   display: flex;
   flex-flow: column;
   width: 100%;
 }
-
-
 
 .editPost__title {
   margin-top: 0;
@@ -43,4 +38,15 @@
   border-radius: 10px;
   font-weight: bold;
   color: white;
+  cursor: pointer;
+}
+
+.editPost__createCategory {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: right;
+  margin: 0.3rem;
+  width: fit-content;
+  align-self: flex-end;
 }

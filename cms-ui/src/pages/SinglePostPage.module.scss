@@ -1,0 +1,10 @@
+.singlePost {
+  display: flex;
+  flex-flow: column;
+  width: min(90%, 900px);
+  margin: auto;
+  padding: 3rem;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+  border-radius: 20px;
+}

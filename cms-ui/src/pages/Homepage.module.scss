@@ -1,0 +1,22 @@
+.homeWrapper {
+}
+.home {
+}
+.home__section {
+  margin: 2rem 0;
+  display: flex;
+  flex-flow: column;
+  > h1 {
+    margin-bottom: 2rem;
+  }
+}
+.home__section__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.home__ordering {
+  width: fit-content;
+  min-width: 200px;
+}

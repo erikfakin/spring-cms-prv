@@ -1,0 +1,21 @@
+.categoriesList {
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    width: 1%;
+    white-space: no-wrap;
+    padding: 1rem;
+  }
+  th:nth-child(2) {
+    width: auto;
+  }
+  th:nth-child(3) {
+    width: auto;
+  }
+  th {
+    text-align: left;
+    border: 1px solid #ddd;
+    padding: 1rem;
+  }
+}

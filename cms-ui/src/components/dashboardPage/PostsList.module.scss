@@ -1,8 +1,37 @@
-.postsList {
+.postsList__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.postsList__header__create {
+  background: royalblue;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+.postsList__header__sorting {
+  min-width: 200px;
+  cursor: pointer;
+}
+.postsList__table {
   width: 100%;
-  th,
-  td {
+  border-collapse: collapse;
+  th {
+    width: 1%;
+    white-space: no-wrap;
+    padding: 1rem;
+  }
+  th:nth-child(3) {
+    width: auto;
+  }
+  th {
     text-align: left;
     border: 1px solid #ddd;
+    padding: 1rem;
   }
 }
