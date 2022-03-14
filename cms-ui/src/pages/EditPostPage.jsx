@@ -9,13 +9,13 @@ import { useNavigate, useParams } from "react-router-dom"
 import { convertFromHTML } from "draft-js"
 import { ContentState } from "draft-js"
 import Message from "components/editPostPage/message/Message"
-import TextInput from "components/editPostPage/textInput/TextInput"
-import SelectInput from "components/editPostPage/selectInput/SelectInput"
 import FeaturedImage from "components/editPostPage/featuredImage/FeaturedImage"
 
 import SubmitButton from "components/shared/buttons/SubmitButton"
 import CreateCategory from "components/shared/forms/CreateCategory"
 import PinnedCheckbox from "components/shared/inputs/PinnedCheckbox"
+import SelectInput from "components/shared/inputs/SelectInput"
+import TextInput from "components/shared/inputs/TextInput"
 
 function EditPostPage() {
   const { postId } = useParams()
@@ -67,6 +67,13 @@ function EditPostPage() {
       setEditorState(EditorState.createWithContent(initialState))
       setSelectedCategory(post.data.category.id)
       setPinned(post.data.pinned)
+    } else {
+      setTitle("")
+      setDescription("")
+      setFeaturedImage()
+      setEditorState(EditorState.createEmpty())
+      setSelectedCategory()
+      setPinned(false)
     }
   }
 
@@ -91,13 +98,13 @@ function EditPostPage() {
       ? await update("/posts/" + postId, data)
       : await post("/posts", data)
 
-    
-    const newPost = await res.data
+    console.log(res)
+
+    const newPost = await res.data.json()
 
     setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
     navigate("/edit-post/" + newPost.id)
     window.scrollTo({ top: 0, behavior: "smooth" })
-
   }
 
   return (
@@ -160,12 +167,13 @@ function EditPostPage() {
           </SubmitButton>
         </div>
 
-        {showGallery && <Gallery
-          className={styles.editPost__gallery}
-          setFeaturedImage={setFeaturedImage}
-          setShowGallery={setShowGallery}
-        />
-        }
+        {showGallery && (
+          <Gallery
+            className={styles.editPost__gallery}
+            setFeaturedImage={setFeaturedImage}
+            setShowGallery={setShowGallery}
+          />
+        )}
       </div>
     </div>
   )

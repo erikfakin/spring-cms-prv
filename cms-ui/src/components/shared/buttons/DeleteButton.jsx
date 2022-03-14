@@ -8,13 +8,13 @@ const DeleteButton = ({ url, onDelete }) => {
 
   const handleDelete = async () => {
     const res = await deleteItem(url)
-    if (res.ok) onDelete()
+    if (res.data.ok) onDelete()
   }
 
   return (
     <div className={styles.deleteButton}>
-      {showConfirm ?
-        (<div className={styles.deleteButton__confirm}>
+      {showConfirm ? (
+        <div className={styles.deleteButton__confirm}>
           <div className={styles.deleteButton__confirm__message}>
             Are you sure?
           </div>
@@ -22,8 +22,9 @@ const DeleteButton = ({ url, onDelete }) => {
             <button onClick={handleDelete}>Yes</button>
             <button onClick={() => setShowConfirm(false)}>No</button>
           </div>
-        </div>) :
-        (<button
+        </div>
+      ) : (
+        <button
           className={styles.deleteButton__button}
           onClick={() => setShowConfirm(true)}
         >
@@ -32,9 +33,8 @@ const DeleteButton = ({ url, onDelete }) => {
             src={deleteIcon}
             alt="delete"
           />
-        </button>)
-      }
-
+        </button>
+      )}
     </div>
   )
 }

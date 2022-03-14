@@ -48,17 +48,17 @@ const PostsList = () => {
   const getData = async () => {
     const res = await get(
       "/posts/?page=" +
-      page +
-      "&orderBy=" +
-      orderBy +
-      "&order=" +
-      order +
-      "&perPage=" +
-      perPage
+        page +
+        "&orderBy=" +
+        orderBy +
+        "&order=" +
+        order +
+        "&perPage=" +
+        perPage
     )
 
-    setPosts(res.posts)
-    setTotalPages(res.totalPages)
+    setPosts(res.data.posts)
+    setTotalPages(res.data.totalPages)
   }
   useEffect(() => {
     getData()

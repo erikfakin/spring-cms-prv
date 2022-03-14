@@ -1,5 +1,6 @@
-import TextInput from "components/editPostPage/textInput/TextInput"
 import SubmitButton from "components/shared/buttons/SubmitButton"
+import PasswordInput from "components/shared/inputs/PasswordInput"
+import TextInput from "components/shared/inputs/TextInput"
 import { useAuth } from "context/authContext"
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -36,7 +37,7 @@ const LoginPage = () => {
         onKeyDown={handleOnKeyDown}
         autofocus={true}
       />
-      <TextInput
+      <PasswordInput
         label={"Password"}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -44,7 +45,6 @@ const LoginPage = () => {
       />
 
       <SubmitButton onClick={handleSubmit}>Login</SubmitButton>
-      
     </div>
   )
 }

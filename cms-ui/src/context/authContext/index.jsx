@@ -2,7 +2,6 @@ import { get, getProtected, post } from "adapters/xhr"
 import { createContext, useState, useContext, useEffect } from "react"
 import { isExpired } from "react-jwt"
 
-
 let AuthContext = createContext(null)
 
 //25 minutes
@@ -50,8 +49,8 @@ export const AuthProvider = ({ children }) => {
 
   const refreshToken = async () => {
     const res = await post("/users/refresh")
-    setToken(res.headers.get("token"))
-    localStorage.setItem("token", res.headers.get("token"))
+    setToken(res.data.headers.get("token"))
+    localStorage.setItem("token", res.data.headers.get("token"))
     clearTimeout(refreshTimeout)
     refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
   }

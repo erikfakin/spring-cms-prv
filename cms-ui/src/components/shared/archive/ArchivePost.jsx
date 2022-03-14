@@ -5,20 +5,28 @@ import "./ArchivePost.css"
 function ArchivePost({ post }) {
   return (
     <Link to={"/posts/" + post.id} className="archivePost">
-        <img
+      <img
         className="archivePost__image"
-          src={post?.featuredImage?.src
+        src={
+          post?.featuredImage?.src
             .substring(post.featuredImage.src.indexOf("uploads") - 1)
-            .replace(/\\/, "/") || "/uploads/placeholder.jpg"}
-          alt={post?.featuredImage?.alt || "placeholder image"}
-        />
-      
+            .replace(/\\/, "/") || "/uploads/placeholder.jpg"
+        }
+        alt={post?.featuredImage?.alt || "placeholder image"}
+      />
 
       <div className="archivePost__info">
-        <h2 className="archivePost__info__title">{post.title}</h2>
-        <p className="archivePost__info__description">{post.description}</p>
+        <h3 className="archivePost__info__title">{post.title}</h3>
+        <Link to={"/category/" + post.category.title}>
+          {post.category.title}
+        </Link>
         <p>{formatDate(post.updatedAt)}</p>
-        <Link to={"/category/"+post.category.title}>{post.category.title}</Link>
+        <p
+          style={{ marginTop: "2rem" }}
+          className="archivePost__info__description"
+        >
+          {post.description}
+        </p>
       </div>
     </Link>
   )

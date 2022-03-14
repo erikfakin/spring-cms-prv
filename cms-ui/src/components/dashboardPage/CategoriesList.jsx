@@ -13,7 +13,8 @@ const CategoriesList = () => {
   const [editCategory, setEditCategory] = useState()
 
   const getData = async () => {
-    setCategories(await getProtected("/categories"))
+    const res = await getProtected("/categories")
+    setCategories(res.data)
   }
 
   useEffect(() => console.log(categories), [categories])
@@ -33,13 +34,13 @@ const CategoriesList = () => {
   }, [])
   return (
     <div className="categoriesList">
-      {showEditCategory &&
+      {showEditCategory && (
         <CreateCategory
           category={editCategory}
           onSubmit={getData}
           onClose={handleEditCloseClick}
         />
-      }
+      )}
 
       <SubmitButton onClick={() => setShowEditCategory(true)}>
         + add new category
@@ -47,22 +48,22 @@ const CategoriesList = () => {
 
       <table className={styles.categoriesList}>
         <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
         </thead>
 
         <tbody>
-        {categories?.map((category) => (
-          <DashboardCategory
-            category={category}
-            onEditClick={handleEditClick}
-          />
-        ))}
+          {categories?.map((category) => (
+            <DashboardCategory
+              category={category}
+              onEditClick={handleEditClick}
+            />
+          ))}
         </tbody>
       </table>
     </div>
