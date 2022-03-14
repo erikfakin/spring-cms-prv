@@ -2,7 +2,6 @@ import { get } from "adapters/xhr"
 import Post from "components/singlePostPage/Post"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { apiUrl } from "utils/constants/env"
 import styles from "./SinglePostPage.module.scss"
 
 function SinglePostPage() {
@@ -12,7 +11,8 @@ function SinglePostPage() {
   const [error, setError] = useState()
 
   const fetchData = async () => {
-    setPost(await get(apiUrl + "/posts/" + params.postId))
+    const res = await get("/posts/" + params.postId)
+    setPost(res.data)
   }
   useEffect(() => {
     fetchData()

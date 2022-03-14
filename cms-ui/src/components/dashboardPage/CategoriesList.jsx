@@ -1,7 +1,7 @@
 import { get, getProtected } from "adapters/xhr"
 import EditCategory from "components/editCategory/EditCategory"
 import { useEffect, useState } from "react"
-import { apiUrl } from "utils/constants/env"
+
 import DashboardCategory from "./DashboardCategory"
 import styles from "./CategoriesList.module.scss"
 import SubmitButton from "components/shared/buttons/SubmitButton"
@@ -13,7 +13,7 @@ const CategoriesList = () => {
   const [editCategory, setEditCategory] = useState()
 
   const getData = async () => {
-    setCategories(await getProtected(apiUrl + "/categories"))
+    setCategories(await getProtected("/categories"))
   }
 
   useEffect(() => console.log(categories), [categories])
@@ -33,20 +33,20 @@ const CategoriesList = () => {
   }, [])
   return (
     <div className="categoriesList">
-      {showEditCategory ? (
+      {showEditCategory &&
         <CreateCategory
           category={editCategory}
           onSubmit={getData}
           onClose={handleEditCloseClick}
         />
-      ) : (
-        ""
-      )}
+      }
 
       <SubmitButton onClick={() => setShowEditCategory(true)}>
-        + add new category{" "}
+        + add new category
       </SubmitButton>
+
       <table className={styles.categoriesList}>
+        <thead>
         <tr>
           <th>ID</th>
           <th>Title</th>
@@ -54,13 +54,16 @@ const CategoriesList = () => {
           <th>Edit</th>
           <th>Delete</th>
         </tr>
+        </thead>
 
+        <tbody>
         {categories?.map((category) => (
           <DashboardCategory
             category={category}
             onEditClick={handleEditClick}
           />
         ))}
+        </tbody>
       </table>
     </div>
   )

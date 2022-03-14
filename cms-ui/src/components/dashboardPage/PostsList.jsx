@@ -3,7 +3,6 @@ import SubmitButton from "components/shared/buttons/SubmitButton"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Select from "react-select"
-import { apiUrl } from "utils/constants/env"
 import DashboardPost from "./DashboardPost"
 import styles from "./PostsList.module.scss"
 
@@ -48,15 +47,14 @@ const PostsList = () => {
 
   const getData = async () => {
     const res = await get(
-      apiUrl +
-        "/posts/?page=" +
-        page +
-        "&orderBy=" +
-        orderBy +
-        "&order=" +
-        order +
-        "&perPage=" +
-        perPage
+      "/posts/?page=" +
+      page +
+      "&orderBy=" +
+      orderBy +
+      "&order=" +
+      order +
+      "&perPage=" +
+      perPage
     )
 
     setPosts(res.posts)

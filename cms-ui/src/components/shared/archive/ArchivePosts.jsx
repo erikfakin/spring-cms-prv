@@ -1,9 +1,10 @@
 import ArchivePost from "./ArchivePost"
-import "./ArchivePosts.css"
+import styles from './ArchivePosts.module.scss'
+
 
 const ArchivePosts = ({ posts }) => {
   return (
-    <div className="posts-archive">
+    <div className={styles.archivePosts}>
       {posts.map((post) => (
         <ArchivePost key={post.id} post={post} />
       ))}

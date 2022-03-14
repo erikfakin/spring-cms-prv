@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import styles from "./DashboardPost.module.scss"
 import DeleteButton from "components/shared/buttons/DeleteButton"
-import { apiUrl } from "utils/constants/env"
 import editIcon from "static/icons/edit.svg"
 
 const DashboardPost = ({ post, onDelete }) => {
@@ -30,7 +29,7 @@ const DashboardPost = ({ post, onDelete }) => {
         </Link>{" "}
       </td>
       <td className={styles.dashboardPost__delete}>
-        <DeleteButton onDelete={onDelete} url={apiUrl + "/posts/" + post.id} />
+        <DeleteButton onDelete={onDelete} url={"/posts/" + post.id} />
       </td>
     </tr>
   )

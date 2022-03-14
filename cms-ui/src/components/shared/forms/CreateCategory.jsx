@@ -1,7 +1,6 @@
 import { post, update } from "adapters/xhr"
 import SubmitButton from "components/shared/buttons/SubmitButton"
 import { useState } from "react"
-import { apiUrl } from "utils/constants/env"
 import styles from "./CreateCategory.module.scss"
 
 const CreateCategory = ({ onSubmit, onClose, category }) => {
@@ -10,24 +9,24 @@ const CreateCategory = ({ onSubmit, onClose, category }) => {
 
   const handleSubmit = async () => {
     if (category) {
-      const res = await update(apiUrl + "/categories/" + category.id, {
+      const res = await update("/categories/" + category.id, {
         title,
         description,
       })
 
-      if (res.ok) {
+      if (res.data.ok) {
         onClose()
-        onSubmit(await res.json())
+        onSubmit(await res.data.json())
       }
     } else {
-      const res = await post(apiUrl + "/categories", {
+      const res = await post("/categories", {
         title,
         description,
       })
 
-      if (res.ok) {
+      if (res.data.ok) {
         onClose()
-        onSubmit(await res.json())
+        onSubmit(await res.data.json())
       }
     }
   }

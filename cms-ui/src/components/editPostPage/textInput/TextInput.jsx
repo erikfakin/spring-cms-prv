@@ -1,6 +1,6 @@
 import styles from "./TextInput.module.scss"
 
-const TextInput = ({ label, value, onChange, onKeyDown }) => {
+const TextInput = ({ label, value, onChange, onKeyDown, autofocus }) => {
   return (
     <label
       className={`${styles.label} ${label === "Title" ? styles.title : ""}`}
@@ -12,7 +12,9 @@ const TextInput = ({ label, value, onChange, onKeyDown }) => {
         onChange={onChange}
         onKeyDown={onKeyDown}
         value={value}
+        autoFocus={autofocus}
       />
+
     </label>
   )
 }

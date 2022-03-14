@@ -1,4 +1,5 @@
 import TextInput from "components/editPostPage/textInput/TextInput"
+import SubmitButton from "components/shared/buttons/SubmitButton"
 import { useAuth } from "context/authContext"
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -33,6 +34,7 @@ const LoginPage = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         onKeyDown={handleOnKeyDown}
+        autofocus={true}
       />
       <TextInput
         label={"Password"}
@@ -41,9 +43,8 @@ const LoginPage = () => {
         onKeyDown={handleOnKeyDown}
       />
 
-      <button className={styles.login__submit} onClick={handleSubmit}>
-        Login
-      </button>
+      <SubmitButton onClick={handleSubmit}>Login</SubmitButton>
+      
     </div>
   )
 }

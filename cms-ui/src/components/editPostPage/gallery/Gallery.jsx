@@ -1,6 +1,5 @@
 import { get, getProtected, upload } from "adapters/xhr"
 import { useEffect, useState } from "react"
-import { apiUrl } from "utils/constants/env"
 import Image from "./Image"
 
 import styles from "./Gallery.module.scss"
@@ -16,11 +15,11 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
   }, [])
 
   const getData = async () => {
-    setImages(await getProtected(apiUrl + "/images"))
+    const res = await getProtected("/images") 
+    setImages(res.data)
   }
 
   const handleClickImage = (image) => {
-    console.log(image)
     setSelectedImage(image)
   }
 
@@ -34,12 +33,12 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
     if (!image) return
     const formData = new FormData()
     formData.append("file", image)
-    upload(apiUrl + "/upload", formData).then((res) => {
-      console.log(res)
-      if (res.ok) {
-        getData()
-      }
-    })
+    const res = await upload("/upload", formData)
+
+    if (!res.error) {
+      getData()
+    }
+    
   }
 
   return (

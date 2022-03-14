@@ -1,6 +1,5 @@
 import { update } from "adapters/xhr"
 import { useEffect, useState } from "react"
-import { apiUrl } from "utils/constants/env"
 import styles from "./ImageInfo.module.scss"
 
 const ImageInfo = ({ image }) => {
@@ -16,7 +15,7 @@ const ImageInfo = ({ image }) => {
   }, [image])
 
   const handleSubmit = () => {
-    const e = update(apiUrl + "/images/" + image.id, {
+    const e = update("/images/" + image.id, {
       title,
       alt,
     })

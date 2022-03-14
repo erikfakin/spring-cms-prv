@@ -1,6 +1,6 @@
 import { get, post, update } from "adapters/xhr"
 import { useEffect, useState } from "react"
-import { apiUrl } from "utils/constants/env"
+
 
 const EditCategory = ({ category, onEditCloseClick, onSubmit }) => {
   console.log(category)
@@ -10,7 +10,7 @@ const EditCategory = ({ category, onEditCloseClick, onSubmit }) => {
 
   const handleSubmit = async () => {
     if (category) {
-      const res = await update(apiUrl + "/categories/" + category.id, {
+      const res = await update("/categories/" + category.id, {
         title,
         description,
       })
@@ -19,7 +19,7 @@ const EditCategory = ({ category, onEditCloseClick, onSubmit }) => {
         onSubmit()
       }
     } else {
-      const res = await post(apiUrl + "/categories", {
+      const res = await post("/categories", {
         title,
         description,
       })

@@ -1,7 +1,7 @@
 import { get, getProtected, post } from "adapters/xhr"
 import { createContext, useState, useContext, useEffect } from "react"
 import { isExpired } from "react-jwt"
-import { apiUrl } from "utils/constants/env"
+
 
 let AuthContext = createContext(null)
 
@@ -24,14 +24,15 @@ export const AuthProvider = ({ children }) => {
   const isSignedIn = token && !isExpired(token)
 
   const signin = async (username, password, callback) => {
-    const res = await post(apiUrl + "/login", {
+    const res = await post("/login", {
       username,
       password,
     })
     setUser(username)
-    setToken(res.headers.get("token"))
+    console.log(res)
+    setToken(res.data.headers.get("token"))
     localStorage.setItem("user", username)
-    localStorage.setItem("token", res.headers.get("token"))
+    localStorage.setItem("token", res.data.headers.get("token"))
     // auto refresh token every 25 minutes 1000*60*25
     refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
     console.log(refreshTimeout)
@@ -48,7 +49,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const refreshToken = async () => {
-    const res = await post(apiUrl + "/users/refresh")
+    const res = await post("/users/refresh")
     setToken(res.headers.get("token"))
     localStorage.setItem("token", res.headers.get("token"))
     clearTimeout(refreshTimeout)

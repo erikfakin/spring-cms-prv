@@ -13,8 +13,8 @@ const DeleteButton = ({ url, onDelete }) => {
 
   return (
     <div className={styles.deleteButton}>
-      {showConfirm ? (
-        <div className={styles.deleteButton__confirm}>
+      {showConfirm ?
+        (<div className={styles.deleteButton__confirm}>
           <div className={styles.deleteButton__confirm__message}>
             Are you sure?
           </div>
@@ -22,20 +22,19 @@ const DeleteButton = ({ url, onDelete }) => {
             <button onClick={handleDelete}>Yes</button>
             <button onClick={() => setShowConfirm(false)}>No</button>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
-      <button
-        className={styles.deleteButton__button}
-        onClick={() => setShowConfirm(true)}
-      >
-        <img
-          className={styles.deleteButton__icon}
-          src={deleteIcon}
-          alt="delete"
-        />
-      </button>
+        </div>) :
+        (<button
+          className={styles.deleteButton__button}
+          onClick={() => setShowConfirm(true)}
+        >
+          <img
+            className={styles.deleteButton__icon}
+            src={deleteIcon}
+            alt="delete"
+          />
+        </button>)
+      }
+
     </div>
   )
 }
