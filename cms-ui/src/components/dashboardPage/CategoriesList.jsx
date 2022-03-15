@@ -29,6 +29,10 @@ const CategoriesList = () => {
     setEditCategory()
   }
 
+  const handleDelete = () => {
+    getData()
+  }
+
   useEffect(() => {
     getData()
   }, [])
@@ -62,6 +66,8 @@ const CategoriesList = () => {
             <DashboardCategory
               category={category}
               onEditClick={handleEditClick}
+              onDelete={handleDelete}
+              key={category.id}
             />
           ))}
         </tbody>

@@ -15,10 +15,15 @@ const SearchBar = () => {
     }
   }
 
+  const handleOnClick = () => {
+    navigate("/search/?q=" + search)
+    setSearch("")
+  }
+
   return (
     <div className={styles.searchBar}>
       <label>
-        <img className={styles.searchBar__icon} src={searchIcon} />
+        <img className={styles.searchBar__icon} src={searchIcon} onClick={handleOnClick} />
         <input
           onKeyDown={handleOnKeyDown}
           name="Search"

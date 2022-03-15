@@ -11,6 +11,7 @@ const RichTxtEditor = ({ editorState, onChange }) => {
   const editor = useRef(null)
 
   const focus = () => {
+    console.log("focius")
     if (editor.current) editor.current.focus()
   }
 
@@ -50,7 +51,7 @@ const RichTxtEditor = ({ editorState, onChange }) => {
           onChange(newState)
         }}
       />
-      <div onClick={focus}>
+      <div onClick={focus} className={"RichTextEditor"}>
         <Editor
           editorState={editorState}
           handleKeyCommand={handleKeyCommand}

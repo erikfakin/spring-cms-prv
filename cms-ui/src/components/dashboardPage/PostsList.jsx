@@ -89,7 +89,7 @@ const PostsList = () => {
         </tr>
         {console.log(posts)}
         {posts?.map((post) => (
-          <DashboardPost post={post} onDelete={handleDelete} />
+          <DashboardPost key={post.id} post={post} onDelete={handleDelete} />
         ))}
       </table>
     </>

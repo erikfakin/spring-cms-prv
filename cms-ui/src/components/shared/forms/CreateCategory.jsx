@@ -1,11 +1,19 @@
 import { post, update } from "adapters/xhr"
 import SubmitButton from "components/shared/buttons/SubmitButton"
 import { useState } from "react"
+import TextInput from "../inputs/TextInput"
 import styles from "./CreateCategory.module.scss"
 
 const CreateCategory = ({ onSubmit, onClose, category }) => {
   const [title, setTitle] = useState(category?.title || "")
   const [description, setDescription] = useState(category?.description || "")
+
+
+  const handleOnKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit()
+    }
+  }
 
   const handleSubmit = async () => {
     if (category) {
@@ -37,24 +45,9 @@ const CreateCategory = ({ onSubmit, onClose, category }) => {
         <button className={styles.createCategory__close} onClick={onClose}>
           x
         </button>
-        <label className={styles.createCategory__title}>
-          Title
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label className={styles.createCategory__description}>
-          Description
-          <input
-            type="text"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
+
+        <TextInput label="Title" value={title} onChange={(e) => setTitle(e.target.value)} autofocus={true} onKeyDown={handleOnKeyDown}/>
+        <TextInput label="Description" value={description} onChange={(e) => setDescription(e.target.value)} onKeyDown={handleOnKeyDown}/>
         <SubmitButton onClick={handleSubmit}>Create</SubmitButton>
       </div>
     </div>

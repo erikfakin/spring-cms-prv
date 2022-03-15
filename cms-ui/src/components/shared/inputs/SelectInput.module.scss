@@ -1,13 +1,18 @@
 .selectInput {
   display: inline;
+  
+  
 }
 .selectInput__select {
   margin-top: 0.5rem;
   border-radius: 10px;
   border: 1px solid #ddd;
+  cursor: pointer;
+  
   > * {
     background-color: #f0f8ff !important;
     border: none !important;
     border-radius: 10px !important;
+   
   }
 }

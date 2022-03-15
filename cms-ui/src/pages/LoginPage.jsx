@@ -10,6 +10,7 @@ import styles from "./LoginPage.module.scss"
 const LoginPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState()
 
   const auth = useAuth()
   let location = useLocation()
@@ -18,7 +19,10 @@ const LoginPage = () => {
   let from = location.state?.from?.pathname || "/"
 
   const handleSubmit = async () => {
-    auth.signin(username, password, () => navigate(from, { replace: true }))
+    const res = await auth.signin(username, password, () => navigate(from, { replace: true }))
+    if (res.error) {
+      setError(res.error)
+    }
   }
 
   const handleOnKeyDown = (e) => {
@@ -29,6 +33,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.login}>
+      {error === 403? "Wrong username or password" : ""}
       <h2>Login</h2>
       <TextInput
         label={"Username"}

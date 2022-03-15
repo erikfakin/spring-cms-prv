@@ -37,7 +37,7 @@ export const post = async (url, data) => {
   if (!res.ok) {
     return { error: res.status }
   }
-  return {data: res}
+  return {data: await res.json(), headers: res.headers}
 }
 
 export const update = async (url, data) => {
@@ -57,7 +57,6 @@ export const update = async (url, data) => {
 }
 
 export const upload = async (url, file) => {
-  console.log(localStorage.getItem("token"))
   const res = await fetch(apiUrl + url, {
     method: "POST",
     headers: {
@@ -82,8 +81,40 @@ export const deleteItem = async (url) => {
       Authorization: localStorage.getItem("token"),
     },
   })
+  console.log(res)
   if (!res.ok) {
     return { error: res.status }
   }
   return {data: res}
+}
+
+export const login = async (data) => {
+  const res = await fetch(apiUrl + "/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({ ...data }),
+  })
+  if (!res.ok) {
+    console.log(res)
+    return { error: res.status }
+  }
+  return {headers: res.headers}
+}
+
+export const tokenRefresh = async () => {
+  const res = await fetch(apiUrl + "/users/refresh", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    
+  })
+  if (!res.ok) {
+    return { error: res.status }
+  }
+  return {headers: res.headers}
 }

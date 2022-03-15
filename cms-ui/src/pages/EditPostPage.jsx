@@ -98,9 +98,8 @@ function EditPostPage() {
       ? await update("/posts/" + postId, data)
       : await post("/posts", data)
 
-    console.log(res)
 
-    const newPost = await res.data.json()
+    const newPost = await res.data
 
     setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
     navigate("/edit-post/" + newPost.id)

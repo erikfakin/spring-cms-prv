@@ -1,4 +1,4 @@
-import { get, getProtected, post } from "adapters/xhr"
+import { get, getProtected, login, post, tokenRefresh } from "adapters/xhr"
 import { createContext, useState, useContext, useEffect } from "react"
 import { isExpired } from "react-jwt"
 
@@ -23,19 +23,22 @@ export const AuthProvider = ({ children }) => {
   const isSignedIn = token && !isExpired(token)
 
   const signin = async (username, password, callback) => {
-    const res = await post("/login", {
+    const res = await login({
       username,
       password,
     })
-    setUser(username)
-    console.log(res)
-    setToken(res.data.headers.get("token"))
-    localStorage.setItem("user", username)
-    localStorage.setItem("token", res.data.headers.get("token"))
-    // auto refresh token every 25 minutes 1000*60*25
-    refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
-    console.log(refreshTimeout)
-    callback()
+    if (!res.error) {
+      setUser(username)
+      setToken(res.headers.get("token"))
+      localStorage.setItem("user", username)
+      localStorage.setItem("token", res.headers.get("token"))
+      // auto refresh token every 25 minutes 1000*60*25
+      refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
+      callback()
+    }
+
+    return res
+
   }
 
   const signout = (callback) => {
@@ -48,9 +51,9 @@ export const AuthProvider = ({ children }) => {
   }
 
   const refreshToken = async () => {
-    const res = await post("/users/refresh")
-    setToken(res.data.headers.get("token"))
-    localStorage.setItem("token", res.data.headers.get("token"))
+    const res = await tokenRefresh()
+    setToken(res.headers.get("token"))
+    localStorage.setItem("token", res.headers.get("token"))
     clearTimeout(refreshTimeout)
     refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
   }

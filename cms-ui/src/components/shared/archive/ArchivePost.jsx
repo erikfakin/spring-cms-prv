@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { formatDate } from "utils/helpers/date"
 import "./ArchivePost.css"
 
 function ArchivePost({ post }) {
+  const navigate = useNavigate()
   return (
-    <Link to={"/posts/" + post.id} className="archivePost">
+    <div onClick={() => navigate("/posts/" + post.id)} className="archivePost">
       <img
         className="archivePost__image"
         src={
@@ -28,7 +29,7 @@ function ArchivePost({ post }) {
           {post.description}
         </p>
       </div>
-    </Link>
+    </div>
   )
 }
 

@@ -1,6 +1,5 @@
 import SearchBar from "components/shared/inputs/SearchBar"
 import { useAuth } from "context/authContext"
-import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import AdminHeader from "./adminHeader/AdminHeader"
 
@@ -10,6 +9,7 @@ const Header = () => {
   let navigate = useNavigate()
   let location = useLocation()
   const auth = useAuth()
+
 
   return (
     <div className={styles.headerWrapper}>

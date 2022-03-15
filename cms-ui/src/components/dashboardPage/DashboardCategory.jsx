@@ -2,7 +2,7 @@ import styles from "./DashboardCategory.module.scss"
 import DeleteButton from "components/shared/buttons/DeleteButton"
 import editIcon from "static/icons/edit.svg"
 
-const DashboardCategory = ({ category, onEditClick }) => {
+const DashboardCategory = ({ category, onEditClick, onDelete }) => {
   return (
     <tr className={styles.dashboardCategory}>
       <td className={styles.dashboardCategory__id}>{category.id}</td>
@@ -20,7 +20,7 @@ const DashboardCategory = ({ category, onEditClick }) => {
         </button>
       </td>
       <td className={styles.dashboardCategory__delete}>
-        <DeleteButton url={"/categories/" + category.id} />
+        <DeleteButton url={"/categories/" + category.id} onDelete={onDelete}/>
       </td>
     </tr>
   )
