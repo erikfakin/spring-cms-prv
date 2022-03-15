@@ -81,7 +81,6 @@ export const deleteItem = async (url) => {
       Authorization: localStorage.getItem("token"),
     },
   })
-  console.log(res)
   if (!res.ok) {
     return { error: res.status }
   }
