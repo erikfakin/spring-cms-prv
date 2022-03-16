@@ -5,7 +5,9 @@ import com.efakin.springcms.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImp implements CategoryService{
@@ -29,11 +31,18 @@ public class CategoryServiceImp implements CategoryService{
     }
 
     @Override
-    public Category updateCategory(Long categoryId, Category category) {
-        Category categoryToUpdate = categoryRepository.findById(categoryId).get();
-        categoryToUpdate.setTitle(category.getTitle());
-        categoryToUpdate.setDescription(category.getDescription());
-        return categoryRepository.save(categoryToUpdate);
+    public Category updateCategory(Long categoryId, Category category) throws EntityNotFoundException {
+        Optional<Category> categoryFound = categoryRepository.findById(categoryId);
+        if (categoryFound.isPresent()) {
+            Category categoryToUpdate = categoryFound.get();
+            categoryToUpdate.setTitle(category.getTitle());
+            categoryToUpdate.setDescription(category.getDescription());
+            return categoryRepository.save(categoryToUpdate);
+
+        } else {
+            throw new EntityNotFoundException("Category with id " + categoryId + " could not be found.");
+        }
+
     }
 
     @Override

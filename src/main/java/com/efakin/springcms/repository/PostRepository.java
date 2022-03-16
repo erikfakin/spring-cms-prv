@@ -13,6 +13,5 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long>, PostRepositoryExt {
     boolean existsByUrl(String url);
     Page<Post> findByCategoryTitleIgnoreCase(String categoryTitle, Pageable pageable);
-
     List<Post> findAllByPinned(boolean pinned);
 }

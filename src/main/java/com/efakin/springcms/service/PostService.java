@@ -4,6 +4,7 @@ import com.efakin.springcms.dto.PostsListDTO;
 import com.efakin.springcms.entity.Post;
 import com.efakin.springcms.models.GetAllPostsResponse;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface PostService {
 
     GetAllPostsResponse getAllPosts(int page, String orderBy, String order, int perPage);
 
-    Post updatePost(Long postId, Post post);
+    Post updatePost(Long postId, Post post) throws EntityNotFoundException;
 
     void delete(Long postId);
 

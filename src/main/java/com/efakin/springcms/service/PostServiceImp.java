@@ -16,9 +16,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -50,7 +52,6 @@ public class PostServiceImp implements  PostService{
         }
 
         post.setUrl(postUrl);
-        log.info(post.toString());
         return postRepository.save(post);
     }
 
@@ -82,16 +83,25 @@ public class PostServiceImp implements  PostService{
     }
 
     @Override
-    public Post updatePost(Long postId, Post post) {
-        Post postToUpdate = postRepository.findById(postId).get();
-        postToUpdate.setTitle(post.getTitle());
-        postToUpdate.setDescription(post.getDescription());
-        postToUpdate.setContent(post.getContent());
-        postToUpdate.setFeaturedImage(post.getFeaturedImage());
-        postToUpdate.setCategory(post.getCategory());
-        postToUpdate.setPinned(post.isPinned());
+    public Post updatePost(Long postId, Post post) throws EntityNotFoundException {
 
-        return postRepository.save(postToUpdate);
+        Optional<Post> postFound = postRepository.findById(postId);
+
+        if(postFound.isPresent()) {
+            Post postToUpdate = postRepository.findById(postId).get();
+            postToUpdate.setTitle(post.getTitle());
+            postToUpdate.setDescription(post.getDescription());
+            postToUpdate.setContent(post.getContent());
+            postToUpdate.setFeaturedImage(post.getFeaturedImage());
+            postToUpdate.setCategory(post.getCategory());
+            postToUpdate.setPinned(post.isPinned());
+
+            return postRepository.save(postToUpdate);
+
+        } else {
+            throw new EntityNotFoundException("Post with id " + postId + " was not found.");
+        }
+
     }
 
     @Override
@@ -117,10 +127,8 @@ public class PostServiceImp implements  PostService{
         }
 
         Pageable sorting = PageRequest.of(page  - 1, perPage, sort);
-        log.info(categoryTitle);
         Page<Post> postsPage = postRepository.findByCategoryTitleIgnoreCase(categoryTitle, sorting);
         List<Post> posts = postsPage.toList();
-        log.info(posts.toString());
         int totalPages = postsPage.getTotalPages();
 
         GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();
