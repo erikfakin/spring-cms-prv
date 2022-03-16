@@ -13,7 +13,6 @@
   height: 100%;
   background-color: white;
   padding: 3rem;
-  padding-bottom: 6rem;
   position: relative;
   display: flex;
   flex-flow: column;
@@ -71,4 +70,7 @@
   }
 }
 .gallery__footer {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
 }

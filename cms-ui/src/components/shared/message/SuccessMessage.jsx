@@ -1,12 +1,12 @@
 import { useEffect } from "react"
-import styles from "./Message.module.scss"
+import styles from "./SuccessMessage.module.scss"
 
-const Message = ({ message, onClose }) => {
+const SuccessMessage = ({ message, onClose }) => {
   useEffect(() => {
     const timeId = setTimeout(() => {
       // After 5 seconds close message
       onClose()
-    }, 5000)
+    }, 500000)
 
     return () => {
       clearTimeout(timeId)
@@ -23,4 +23,4 @@ const Message = ({ message, onClose }) => {
   )
 }
 
-export default Message
+export default SuccessMessage

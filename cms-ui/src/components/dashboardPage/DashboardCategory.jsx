@@ -15,12 +15,12 @@ const DashboardCategory = ({ category, onEditClick, onDelete }) => {
           <img
             className={styles.dashboardCategory__edit__icon}
             src={editIcon}
-            alt="edit category"
+            alt="Edit category"
           />
         </button>
       </td>
       <td className={styles.dashboardCategory__delete}>
-        <DeleteButton url={"/categories/" + category.id} onDelete={onDelete}/>
+        <DeleteButton onDelete={onDelete} url={"/categories/" + category.id} />
       </td>
     </tr>
   )

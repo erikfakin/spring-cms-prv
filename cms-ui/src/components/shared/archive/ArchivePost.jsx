@@ -1,30 +1,32 @@
 import { Link, useNavigate } from "react-router-dom"
 import { formatDate } from "utils/helpers/date"
-import "./ArchivePost.css"
+import styles from "./ArchivePost.module.scss"
 
 function ArchivePost({ post }) {
   const navigate = useNavigate()
   return (
-    <div onClick={() => navigate("/posts/" + post.id)} className="archivePost">
-      <img
-        className="archivePost__image"
+    <div onClick={() => navigate("/posts/" + post.id)} className={styles.archivePost}>
+      {post.featuredImage? <img
+        className={styles.archivePost__image}
         src={
-          post?.featuredImage?.src
-            .substring(post.featuredImage.src.indexOf("uploads") - 1)
-            .replace(/\\/, "/") || "/uploads/placeholder.jpg"
+          post.featuredImage.src
         }
-        alt={post?.featuredImage?.alt || "placeholder image"}
-      />
+        alt={post.featuredImage.alt || "Post image"}
+      /> : <img
+      className={styles.archivePost__image}
+      src="/uploads/placeholder.jpg"
+      alt="placeholder image"
+    />}
+      
 
-      <div className="archivePost__info">
-        <h3 className="archivePost__info__title">{post.title}</h3>
+      <div className={styles.archivePost__info}>
+        <h3 className={styles.archivePost__info__title}>{post.title}</h3>
         <Link to={"/category/" + post.category.title}>
           {post.category.title}
         </Link>
         <p>{formatDate(post.updatedAt)}</p>
         <p
-          style={{ marginTop: "2rem" }}
-          className="archivePost__info__description"
+          className={styles.archivePost__info__description}
         >
           {post.description}
         </p>

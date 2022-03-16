@@ -1,4 +1,6 @@
 import { update } from "adapters/xhr"
+import SubmitButton from "components/shared/buttons/SubmitButton"
+import TextInput from "components/shared/inputs/TextInput"
 import { useEffect, useState } from "react"
 import styles from "./ImageInfo.module.scss"
 
@@ -14,46 +16,38 @@ const ImageInfo = ({ image }) => {
     }
   }, [image])
 
-  const handleSubmit = () => {
-    const e = update("/images/" + image.id, {
+  const handleSubmit = async () => {
+    const res = await update("/images/" + image.id, {
       title,
       alt,
     })
-
-    console.log(e)
+    console.log(res)
+    if (!res.error) setChanged(false)
   }
 
-  console.log(image)
   return (
     <div className={styles.imageInfo}>
-      <div className={styles.imageInfo__imageWrapper}>
-        <img className={styles.imageInfo__image} src={image?.src} />
-      </div>
-      <label className={styles.imageInfo__title}>
-        Title
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => {
-            setChanged(true)
-            setTitle(e.target.value)
-          }}
-        />
-      </label>
-      <label className={styles.imageInfo__alt}>
-        Alt
-        <input
-          type="text"
-          className={styles.imageInfo__alt}
-          value={alt}
-          onChange={(e) => {
-            setChanged(true)
-            setAlt(e.target.value)
-          }}
-        />
-      </label>
-      {changed ? <button onClick={handleSubmit}>Update</button> : ""}
+      {image && <>
+        <div className={styles.imageInfo__imageWrapper}>
+          <img className={styles.imageInfo__image} src={image?.src} />
+        </div>
+
+        <TextInput label="Image title" value={title} onChange={(e) => {
+          setChanged(true)
+          setTitle(e.target.value)
+        }} />
+
+        <TextInput label="Image alt" value={alt} onChange={(e) => {
+          setChanged(true)
+          setAlt(e.target.value)
+        }} />
+
+
+        {changed ? <SubmitButton onClick={handleSubmit}>Update</SubmitButton> : ""}
+      </>
+      }
     </div>
+
   )
 }
 

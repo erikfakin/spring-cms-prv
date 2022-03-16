@@ -1,0 +1,17 @@
+.message {
+    padding: 3rem;
+    background-color: #ffdada;
+    color: #770000;
+    border-radius: 15px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 3rem ;
+  }
+  .message__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    cursor: pointer;
+  }
+  

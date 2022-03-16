@@ -1,15 +1,17 @@
 import { get, getProtected, upload } from "adapters/xhr"
 import { useEffect, useState } from "react"
-import Image from "./Image"
 
-import styles from "./Gallery.module.scss"
+import Image from "./Image"
 import ImageInfo from "./ImageInfo"
 
-const Gallery = ({ setFeaturedImage, setShowGallery }) => {
-  console.log(styles)
+import styles from "./Gallery.module.scss"
+import SubmitButton from "components/shared/buttons/SubmitButton"
+
+const Gallery = ({ setFeaturedImage, setShowGallery, featuredImage }) => {
+  
   const [images, setImages] = useState([])
-  const [selectedImage, setSelectedImage] = useState()
-  const [imageToUpload, setImageToUpload] = useState()
+  const [selectedImage, setSelectedImage] = useState(featuredImage)
+ 
   useEffect(() => {
     getData()
   }, [])
@@ -70,15 +72,7 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
           </div>
         </div>
         <div className={styles.gallery__footer}>
-          <button
-            disabled={selectedImage == null}
-            className={styles.gallery__selectImage}
-            onClick={handleSelectImage}
-          >
-            Confirm selection
-          </button>
-
-          <label className={styles.gallery__upload}>
+        <label className={styles.gallery__upload}>
             + upload new image
             <input
               onChange={handleSubmit}
@@ -87,6 +81,9 @@ const Gallery = ({ setFeaturedImage, setShowGallery }) => {
               accept="image/png, image/jpeg"
             />
           </label>
+          <SubmitButton onClick={handleSelectImage}>Confirm selection</SubmitButton>
+          
+         
         </div>
       </div>
     </div>

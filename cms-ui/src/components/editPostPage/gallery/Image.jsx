@@ -8,7 +8,7 @@ const Image = ({ image, selectedImage, onClick }) => {
           ? `${styles.image} ${styles.image___selected}`
           : `${styles.image}`
       }
-      src={image.src.replace(/\\/g, "/")}
+      src={image.src}
       alt={image.alt}
       key={image.id}
       onClick={() => onClick(image)}

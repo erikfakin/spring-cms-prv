@@ -1,6 +1,7 @@
 package com.efakin.springcms.service;
 
 import com.efakin.springcms.entity.Image;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Slf4j
 @Service
 public class StorageServiceImp implements StorageService{
 
@@ -26,10 +28,7 @@ public class StorageServiceImp implements StorageService{
     @Autowired
     private ImageService imageService;
 
-
-
     @Override
-
     public void saveFile(MultipartFile file) throws IOException {
 
 
@@ -39,12 +38,12 @@ public class StorageServiceImp implements StorageService{
         Path path = Paths.get(folderLocation + fileName);
         Path relativePath = Paths.get(folder + fileName);
 
-        Files.write(path, bytes);
+        Path p = Files.write(path, bytes);
 
-        //Save the image in the database
+        //Save the image to the database
         Image image = new Image();
         image.setTitle(fileName);
-        image.setSrc(relativePath.toString());
+        image.setSrc(relativePath.normalize().toString().replace("\\","/"));
         imageService.saveImage(image);
 
     }

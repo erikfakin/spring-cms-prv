@@ -1,4 +1,4 @@
-import { get, getProtected, post, update } from "adapters/xhr"
+import { get, post, update } from "adapters/xhr"
 import RichTxtEditor from "components/editPostPage/richTextEditor/RichTextEditor"
 import Gallery from "components/editPostPage/gallery/Gallery"
 import { EditorState, convertToRaw } from "draft-js"
@@ -8,14 +8,14 @@ import styles from "./EditPostPage.module.scss"
 import { useNavigate, useParams } from "react-router-dom"
 import { convertFromHTML } from "draft-js"
 import { ContentState } from "draft-js"
-import Message from "components/editPostPage/message/Message"
 import FeaturedImage from "components/editPostPage/featuredImage/FeaturedImage"
 
 import SubmitButton from "components/shared/buttons/SubmitButton"
-import CreateCategory from "components/shared/forms/CreateCategory"
+import EditCategory from "components/shared/forms/EditCategory"
 import PinnedCheckbox from "components/shared/inputs/PinnedCheckbox"
 import SelectInput from "components/shared/inputs/SelectInput"
 import TextInput from "components/shared/inputs/TextInput"
+import SuccessMessage from "components/shared/message/SuccessMessage"
 
 function EditPostPage() {
   const { postId } = useParams()
@@ -23,7 +23,7 @@ function EditPostPage() {
   const [description, setDescription] = useState("")
   const [featuredImage, setFeaturedImage] = useState()
   const [showGallery, setShowGallery] = useState(false)
-  const [showCreateCategory, setShowCreateCategory] = useState(false)
+  const [showEditCategory, setShowEditCategory] = useState(false)
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [notice, setNotice] = useState("")
   const [categories, setCategories] = useState([])
@@ -36,11 +36,11 @@ function EditPostPage() {
     getData()
   }, [postId])
 
-  const handleCreateCategory = (category) => {
-    console.log(category)
+  const handleEditCategory = (category) => {
     getCategories()
     setSelectedCategory(category.id)
   }
+
   const getCategories = async () => {
     const res = await get("/categories")
     if (res) {
@@ -108,12 +108,12 @@ function EditPostPage() {
 
   return (
     <div className={styles.editPostWrapper}>
-      {notice && <Message message={notice} onClose={() => setNotice("")} />}
-      {showCreateCategory && (
-        <CreateCategory
-          onSubmit={handleCreateCategory}
+      {notice && <SuccessMessage message={notice} onClose={() => setNotice("")} />}
+      {showEditCategory && (
+        <EditCategory
+          onSubmit={handleEditCategory}
           onClose={() => {
-            setShowCreateCategory(false)
+            setShowEditCategory(false)
           }}
         />
       )}
@@ -148,7 +148,7 @@ function EditPostPage() {
             />
             <button
               className={styles.editPost__createCategory}
-              onClick={() => setShowCreateCategory(true)}
+              onClick={() => setShowEditCategory(true)}
             >
               + add new category
             </button>
@@ -169,6 +169,7 @@ function EditPostPage() {
         {showGallery && (
           <Gallery
             className={styles.editPost__gallery}
+            featuredImage={featuredImage}
             setFeaturedImage={setFeaturedImage}
             setShowGallery={setShowGallery}
           />

@@ -1,11 +1,10 @@
 import { get, getProtected } from "adapters/xhr"
-import EditCategory from "components/editCategory/EditCategory"
 import { useEffect, useState } from "react"
 
+import EditCategory from "components/shared/forms/EditCategory"
 import DashboardCategory from "./DashboardCategory"
-import styles from "./CategoriesList.module.scss"
 import SubmitButton from "components/shared/buttons/SubmitButton"
-import CreateCategory from "components/shared/forms/CreateCategory"
+import styles from "./CategoriesList.module.scss"
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([])
@@ -39,7 +38,7 @@ const CategoriesList = () => {
   return (
     <div className="categoriesList">
       {showEditCategory && (
-        <CreateCategory
+        <EditCategory
           category={editCategory}
           onSubmit={getData}
           onClose={handleEditCloseClick}

@@ -1,6 +1,6 @@
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from "draft-js"
+import { Editor, RichUtils, getDefaultKeyBinding } from "draft-js"
+import { useRef } from "react"
 
-import { useRef, useState } from "react"
 import BlockStyleControls from "./BlockStyleControls"
 import InlineStyleControls from "./InlineStyleControls"
 
@@ -57,7 +57,7 @@ const RichTxtEditor = ({ editorState, onChange }) => {
           handleKeyCommand={handleKeyCommand}
           keyBindingFn={mapKeyToEditorCommand}
           onChange={onChange}
-          placeholder="Tell a story..."
+          placeholder="Write your post..."
           ref={editor}
           spellCheck={true}
         />

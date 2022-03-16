@@ -15,7 +15,11 @@ const DashboardPost = ({ post, onDelete }) => {
               ? post.featuredImage.src
               : "/uploads/placeholder.jpg"
           }
-          alt=""
+          alt={
+            post.featuredImage
+              ? post.featuredImage.alt
+              : "Placeholder"
+          }
         />
       </td>
       <td className={styles.dashboardPost__title}> {post.title}</td>
@@ -24,9 +28,9 @@ const DashboardPost = ({ post, onDelete }) => {
           <img
             className={styles.dashboardPost__edit__icon}
             src={editIcon}
-            alt="edit post"
+            alt="Edit post"
           />
-        </Link>{" "}
+        </Link>
       </td>
       <td className={styles.dashboardPost__delete}>
         <DeleteButton onDelete={onDelete} url={"/posts/" + post.id} />

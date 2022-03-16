@@ -18,10 +18,8 @@ const Post = ({ post }) => {
       {post.featuredImage ? (
         <img
           className={styles.singlePost__featuredImage}
-          src={post.featuredImage.src
-            .substring(post.featuredImage.src.indexOf("uploads") - 1)
-            .replace(/\\/, "/")}
-          alt=""
+          src={post.featuredImage.src}
+          alt={post.featuredImage.alt}
         />
       ) : (
         <img

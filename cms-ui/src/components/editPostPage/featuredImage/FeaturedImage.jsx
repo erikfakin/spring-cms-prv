@@ -8,7 +8,8 @@ const FeaturedImage = ({onClick, featuredImage}) => {
                 <div onClick={onClick} className={styles.featuredImage__imageWrapper}>
                 {featuredImage? <img
                             className={styles.featuredImage__image}
-                            src={featuredImage?.src || "/uploads/placeholder.jpg"}
+                            src={featuredImage.src}
+                            alt={featuredImage.alt}
                         /> :
                         <div className={styles.featuredImage__noImage}><p>Select featured image</p></div>}
                     
