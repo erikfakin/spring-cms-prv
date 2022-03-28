@@ -20,6 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,10 @@ public class PostServiceImp implements  PostService{
                 counter++;
             }
             postUrl = postUrl + "-" + counter;
+        }
+
+        if (Objects.isNull(post.getCategory().getId())) {
+
         }
 
         post.setUrl(postUrl);

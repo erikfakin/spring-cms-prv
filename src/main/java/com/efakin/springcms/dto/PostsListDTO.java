@@ -14,21 +14,13 @@ import java.util.Date;
 public class PostsListDTO {
 
     private Long id;
-
-    private String title;
-
-    private String description;
-
-    private Image featuredImage;
-
-    private Category category;
-
     private String author;
-
+    private String description;
+    private String title;
     private String url;
-
+    private Category category;
+    private Image featuredImage;
     private Date createdAt;
-
     private Date updatedAt;
 
 

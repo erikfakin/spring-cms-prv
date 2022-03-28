@@ -17,10 +17,10 @@ import java.nio.file.Paths;
 @Service
 public class StorageServiceImp implements StorageService{
 
-    @Value("${upload.path}")
+    @Value("${upload.basePath}")
+    private String baseLocation;
+    @Value("${upload.folderPath}")
     private String folderLocation;
-    @Value("${upload.uploadFolder}")
-    private String folder;
 
     @Autowired
     private ServletContext context;
@@ -35,8 +35,8 @@ public class StorageServiceImp implements StorageService{
         //Upload the image
         byte[] bytes = file.getBytes();
         String fileName = file.getOriginalFilename();
-        Path path = Paths.get(folderLocation + fileName);
-        Path relativePath = Paths.get(folder + fileName);
+        Path path = Paths.get(baseLocation + folderLocation + fileName);
+        Path relativePath = Paths.get("/"+folderLocation + "/" + fileName);
 
         Path p = Files.write(path, bytes);
 

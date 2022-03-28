@@ -86,7 +86,7 @@ function EditPostPage() {
       description,
       content: markup,
       featuredImage: {
-        id: featuredImage.id,
+        id: featuredImage?.id,
       },
       category: {
         id: selectedCategory,
@@ -99,11 +99,17 @@ function EditPostPage() {
       : await post("/posts", data)
 
 
-    const newPost = await res.data
+    if (!res.error) {
+      const newPost = await res.data
+      setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
+      navigate("/edit-post/" + newPost.id)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+    else {
+      setNotice(res.error)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
 
-    setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
-    navigate("/edit-post/" + newPost.id)
-    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   return (

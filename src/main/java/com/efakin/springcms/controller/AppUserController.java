@@ -27,10 +27,16 @@ public class AppUserController {
         return appUserService.findAll();
     }
 
+    // Used for registering new users
     @PostMapping("/register")
     public void signUp(@RequestBody AppUser user) {
         appUserService.save(user);
     }
+
+    // Used to refresh the JWT token used for authentication. The token expiration time is limited.
+    // By making a post request to "/refresh" with a valid token, the server returns a new valid token with a new expiration time.
+
+
     @PostMapping("/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
         appUserService.refreshToken(request, response);

@@ -35,6 +35,7 @@ export const post = async (url, data) => {
     body: JSON.stringify({ ...data }),
   })
   if (!res.ok) {
+    console.log(res)
     return { error: res.status }
   }
   return {data: await res.json(), headers: res.headers}
