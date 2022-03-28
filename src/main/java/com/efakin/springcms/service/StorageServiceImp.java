@@ -40,6 +40,8 @@ public class StorageServiceImp implements StorageService{
 
         Path p = Files.write(path, bytes);
 
+        System.out.println(p);
+
         //Save the image to the database
         Image image = new Image();
         image.setTitle(fileName);

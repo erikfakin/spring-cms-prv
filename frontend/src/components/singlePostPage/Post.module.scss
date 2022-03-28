@@ -6,6 +6,11 @@
   background-color: #fff;
   width: min(90%, 900px);
   margin: auto;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 100%;
+    }
+  }
 }
 .singlePost__title {
   font-size: 3.5rem;
@@ -23,6 +28,11 @@
 .singlePost__info {
   display: flex;
   margin-bottom: 2rem;
+  @media screen and (max-width: 720px) {
+    & {
+      flex-flow: column;
+    }
+  }
 }
 .singlePost__info__category {
   margin-right: 1rem;
@@ -30,4 +40,5 @@
 .singlePost__info__updatedAt {
 }
 .singlePost__content {
+  margin-bottom: 1rem;
 }

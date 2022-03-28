@@ -10,7 +10,6 @@ const Header = () => {
   let location = useLocation()
   const auth = useAuth()
 
-
   return (
     <div className={styles.headerWrapper}>
       {auth.isSignedIn ? <AdminHeader /> : ""}
@@ -18,7 +17,10 @@ const Header = () => {
         <Link to="/" className={styles.header__logo}>
           <h2 className={styles.header__logo}>SimpleCMS</h2>
         </Link>
-        <SearchBar />
+        <div className={styles.header__desktop__search}>
+          <SearchBar />
+        </div>
+
         <div className={styles.header__navigation}>
           <Link className={styles.header__navigation__link} to="/">
             Home
@@ -26,6 +28,9 @@ const Header = () => {
 
           {auth.isSignedIn ? "" : <Link to="/login">Login</Link>}
         </div>
+      </div>
+      <div className={styles.headerMobile__search}>
+        <SearchBar />
       </div>
     </div>
   )

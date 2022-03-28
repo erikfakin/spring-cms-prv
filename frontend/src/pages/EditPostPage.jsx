@@ -98,23 +98,22 @@ function EditPostPage() {
       ? await update("/posts/" + postId, data)
       : await post("/posts", data)
 
-
     if (!res.error) {
       const newPost = await res.data
       setNotice(`Post ${postId ? "edited" : "created"} successfully!`)
       navigate("/edit-post/" + newPost.id)
       window.scrollTo({ top: 0, behavior: "smooth" })
-    }
-    else {
+    } else {
       setNotice(res.error)
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
-
   }
 
   return (
     <div className={styles.editPostWrapper}>
-      {notice && <SuccessMessage message={notice} onClose={() => setNotice("")} />}
+      {notice && (
+        <SuccessMessage message={notice} onClose={() => setNotice("")} />
+      )}
       {showEditCategory && (
         <EditCategory
           onSubmit={handleEditCategory}
@@ -127,6 +126,12 @@ function EditPostPage() {
         {postId ? "Edit post" : "Create post"}
       </h1>
       <div className={styles.editPost}>
+        <div className={styles.editPost__header__submit__mobile}>
+          <SubmitButton onClick={handleSubmit}>
+            {postId ? "Update post" : "Create post"}
+          </SubmitButton>
+        </div>
+
         <RichTxtEditor
           className={styles.editPost__content}
           editorState={editorState}
@@ -166,12 +171,12 @@ function EditPostPage() {
             featuredImage={featuredImage}
             onClick={(e) => setShowGallery(true)}
           />
-
-          <SubmitButton onClick={handleSubmit}>
-            {postId ? "Update post" : "Create post"}
-          </SubmitButton>
+          <div className={styles.editPost__header__submit__desktop}>
+            <SubmitButton onClick={handleSubmit}>
+              {postId ? "Update post" : "Create post"}
+            </SubmitButton>
+          </div>
         </div>
-
         {showGallery && (
           <Gallery
             className={styles.editPost__gallery}

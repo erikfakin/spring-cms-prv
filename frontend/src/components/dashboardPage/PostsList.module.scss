@@ -3,6 +3,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  @media screen and (max-width: 720px) {
+    & {
+      flex-flow: column;
+      align-items: flex-start;
+    }
+  }
 }
 .postsList__header__create {
   background: royalblue;
@@ -17,10 +23,24 @@
 .postsList__header__sorting {
   min-width: 200px;
   cursor: pointer;
+  @media screen and (max-width: 720px) {
+    & {
+      margin-top: 1rem;
+      width: 100%;
+    }
+  }
 }
 .postsList__table {
   width: 100%;
   border-collapse: collapse;
+
+  @media screen and (max-width: 720px) {
+    & {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
   th {
     width: 1%;
     white-space: no-wrap;

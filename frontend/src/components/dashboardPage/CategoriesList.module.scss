@@ -2,6 +2,14 @@
   margin-top: 2rem;
   width: 100%;
   border-collapse: collapse;
+
+  @media screen and (max-width: 720px) {
+    & {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
   th {
     width: 1%;
     white-space: no-wrap;

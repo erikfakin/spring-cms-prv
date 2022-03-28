@@ -5,6 +5,11 @@
   height: fit-content;
   padding: 0.5rem;
   cursor: pointer;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 50%;
+    }
+  }
 }
 .image___selected {
   outline: 3px solid blue;

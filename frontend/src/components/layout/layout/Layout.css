@@ -16,4 +16,9 @@ body {
 .content {
   width: min(90%, 1400px);
   margin: 3rem auto;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 95%;
+    }
+  }
 }

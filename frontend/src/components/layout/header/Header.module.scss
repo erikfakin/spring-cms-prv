@@ -27,3 +27,29 @@
 .header__navigation__link {
   margin: 0 1rem;
 }
+
+.header__desktop__search {
+  min-width: 20rem;
+  @media screen and (max-width: 720px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+.headerMobile__search {
+  display: none;
+  background-color: aliceblue;
+  width: 100%;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  input {
+    background-color: aliceblue;
+  }
+  @media screen and (max-width: 720px) {
+    & {
+      display: block;
+    }
+  }
+}

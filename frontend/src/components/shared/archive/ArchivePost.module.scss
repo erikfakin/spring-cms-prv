@@ -1,48 +1,69 @@
 .archivePost {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    padding: 1rem;
-    width: calc(50% - 1rem);
-    text-decoration: none;
-    color: black;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    margin: 1rem;
-    border-radius: 20px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: 1rem;
+  width: calc(50% - 1rem);
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  margin: 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  @media screen and (max-width: 720px) {
+    & {
+      width: 100%;
+      margin: 1rem 0;
+      flex-flow: column;
+      padding: 2rem;
+    }
   }
-  .archivePost:nth-child(2n + 1) {
-    margin-left: 0;
+}
+.archivePost:nth-child(2n + 1) {
+  margin-left: 0;
+}
+.archivePost:nth-child(2n) {
+  margin-right: 0;
+}
+.archivePost:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.archivePost__image {
+  width: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 15px;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 100%;
+    }
   }
-  .archivePost:nth-child(2n) {
-    margin-right: 0;
+}
+
+.archivePost__info {
+  width: 50%;
+  text-align: left;
+  margin-left: 2rem;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
   }
-  .archivePost:hover {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-  }
-  
-  .archivePost__image {
-    width: 50%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 15px;
-  }
-  
-  .archivePost__info {
-    width: 50%;
-    text-align: left;
-    margin-left: 2rem;
-  }
-  
-  .archivePost__info__title {
-    margin-bottom: 1rem;
-  }
-  
-  .archivePost__info__description {
-      margin-top: 1rem;
-  }
-  
+}
+
+.archivePost__info__title {
+  margin-bottom: 1rem;
+}
+
+.archivePost__info__description {
+  margin-top: 1rem;
+}

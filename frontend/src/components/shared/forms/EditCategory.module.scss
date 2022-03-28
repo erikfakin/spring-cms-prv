@@ -20,6 +20,13 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 90%;
+      min-width: unset;
+      padding: 2rem;
+    }
+  }
 }
 .editCategory__close {
   position: absolute;

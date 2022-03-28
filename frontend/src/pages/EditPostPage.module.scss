@@ -4,9 +4,19 @@
   padding: 3rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 25px;
+  @media screen and (max-width: 720px) {
+    & {
+      padding: 3rem 2rem;
+    }
+  }
 }
 .editPost {
   display: flex;
+  @media screen and (max-width: 720px) {
+    & {
+      flex-flow: column-reverse;
+    }
+  }
 }
 .editPost__pageTitle {
   margin-bottom: 3rem;
@@ -30,6 +40,11 @@
   flex-flow: column;
   justify-content: space-between;
   width: 33.33%;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 100%;
+    }
+  }
 }
 .editPost__submit {
   background: royalblue;
@@ -49,4 +64,21 @@
   margin: 0.3rem;
   width: fit-content;
   align-self: flex-end;
+}
+.editPost__header__submit__desktop {
+  @media screen and (max-width: 720px) {
+    & {
+      display: none;
+    }
+  }
+}
+.editPost__header__submit__mobile {
+  display: none;
+  @media screen and (max-width: 720px) {
+    & {
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
 }

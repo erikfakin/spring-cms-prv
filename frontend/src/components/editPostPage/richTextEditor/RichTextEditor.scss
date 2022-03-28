@@ -8,8 +8,13 @@
   width: 66.66%;
   border-radius: 10px;
   margin-right: 1rem;
+  @media screen and (max-width: 720px) {
+    & {
+      width: 100%;
+    }
+  }
 }
-.RichTextEditor{
+.RichTextEditor {
   height: 100%;
 }
 .RichEditor-editor {

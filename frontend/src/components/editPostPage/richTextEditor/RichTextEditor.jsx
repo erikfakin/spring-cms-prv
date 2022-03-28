@@ -5,7 +5,7 @@ import BlockStyleControls from "./BlockStyleControls"
 import InlineStyleControls from "./InlineStyleControls"
 
 import "draft-js/dist/Draft.css"
-import "./RichTextEditor.css"
+import "./RichTextEditor.scss"
 
 const RichTxtEditor = ({ editorState, onChange }) => {
   const editor = useRef(null)
