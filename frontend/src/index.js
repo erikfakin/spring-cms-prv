@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { HashRouter, Route, Routes } from "react-router-dom"
 import SinglePostPage from "pages/SinglePostPage"
 import EditPostPage from "pages/EditPostPage"
 import Homepage from "pages/Homepage"
@@ -16,7 +16,7 @@ import Layout from "components/layout/layout/Layout"
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Layout>
           <Routes>
             <Route path="/" element={<Homepage />} />
@@ -55,7 +55,7 @@ ReactDOM.render(
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
+      </HashRouter>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
