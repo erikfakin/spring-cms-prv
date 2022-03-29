@@ -1,7 +1,7 @@
 import { get } from "adapters/xhr"
 import SubmitButton from "components/shared/buttons/SubmitButton"
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Select from "react-select"
 import DashboardPost from "./DashboardPost"
 import styles from "./PostsList.module.scss"

@@ -1,4 +1,4 @@
-import { get, getProtected } from "adapters/xhr"
+import { getProtected } from "adapters/xhr"
 import { useEffect, useState } from "react"
 
 import EditCategory from "components/shared/forms/EditCategory"

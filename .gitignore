@@ -2,3 +2,5 @@
 .mvn/
 frontend/node_modules/
 /target/
+/frontend/build/
+/target/
