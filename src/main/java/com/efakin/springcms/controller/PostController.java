@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/posts")
@@ -22,7 +21,7 @@ public class PostController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("")
+    @GetMapping()
     public GetAllPostsResponse getAllPosts(@RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "updatedAt") String orderBy, @RequestParam(required = false, defaultValue = "desc") String order, @RequestParam(required = false, defaultValue = "10") int perPage) {
         return postService.getAllPosts(page, orderBy, order, perPage);
     }

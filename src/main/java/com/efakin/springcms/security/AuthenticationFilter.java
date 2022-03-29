@@ -6,17 +6,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,20 +24,19 @@ import java.util.Date;
 import static com.efakin.springcms.constants.SecurityConstants.EXPIRATION_TIME;
 import static com.efakin.springcms.constants.SecurityConstants.KEY;
 
-@Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
+    // Attempts to authenticate the user with the username and password provided in the request
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
             AppUser applicationUser = new ObjectMapper().readValue(req.getInputStream(), AppUser.class);
-
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(applicationUser.getUsername(),
                             applicationUser.getPassword(), new ArrayList<>())
@@ -52,6 +46,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
+    // If the user authenticate successfully with the username and password, we create a new JWT token and send it back in the header of the response.
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {

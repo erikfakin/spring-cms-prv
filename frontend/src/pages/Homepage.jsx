@@ -8,6 +8,7 @@ const Homepage = () => {
   return (
     <div className={styles.homeWrapper}>
       <div className={styles.home}>
+        
         <section className={styles.home__section}>
          <ArchivePinnedPosts />
         </section>
@@ -15,6 +16,7 @@ const Homepage = () => {
         <section className={styles.home__section}>
          <ArchiveAllPosts />
         </section>
+
       </div>
     </div>
   )

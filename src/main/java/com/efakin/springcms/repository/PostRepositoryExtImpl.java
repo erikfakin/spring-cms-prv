@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+// Used to implement Hibernate Search
 public class PostRepositoryExtImpl implements PostRepositoryExt{
 
     @PersistenceContext
@@ -30,11 +30,8 @@ public class PostRepositoryExtImpl implements PostRepositoryExt{
     @Override
     public GetAllPostsResponse search(String terms, int page, int perPage) {
 
-
         SearchSession searchSession = Search.session( em );
-
         SearchScope<Post> scope = searchSession.scope( Post.class );
-
         SearchResult<Post> result = searchSession.search( scope )
                 .where( scope.predicate().match()
                         .fields( "title", "content" )
@@ -42,10 +39,7 @@ public class PostRepositoryExtImpl implements PostRepositoryExt{
                         .toPredicate() )
                 .fetch((page - 1)*perPage, perPage );
 
-
-
         int totalPages = (int) Math.ceil((float) result.total().hitCount() / perPage);
-
         List<Post> posts = result.hits();
 
         GetAllPostsResponse getAllPostsResponse = new GetAllPostsResponse();

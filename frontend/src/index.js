@@ -3,7 +3,6 @@ import ReactDOM from "react-dom"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import SinglePostPage from "pages/SinglePostPage"
 import EditPostPage from "pages/EditPostPage"
-import { Layout } from "components/layout"
 import Homepage from "pages/Homepage"
 import PageNotFound from "pages/PageNotFound"
 import LoginPage from "pages/LoginPage"
@@ -12,6 +11,7 @@ import { AuthProvider } from "context/authContext"
 import DashboardPage from "pages/DashboardPage"
 import CategoryPostsPage from "pages/CategoryPostsPage"
 import SearchPage from "pages/SearchPage"
+import Layout from "components/layout/layout/Layout"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -35,7 +35,6 @@ ReactDOM.render(
                 </RequireAuth>
               }
             />
-
             <Route
               path="edit-post/"
               element={

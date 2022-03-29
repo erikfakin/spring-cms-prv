@@ -1,5 +1,5 @@
 import { useAuth } from "context/authContext"
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import styles from "./AdminHeader.module.scss"
 
 const AdminHeader = () => {

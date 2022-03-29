@@ -12,18 +12,16 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 @Configuration
-
 public class HibernateSearchIndexBuild implements ApplicationListener<ApplicationReadyEvent> {
 
 
     @Autowired
-
     private EntityManager entityManager;
 
+    // Starts the indexing process (when the application is ready to serve requests) of the entities marked for indexing.
+    // The indexing is necessary for Hibernate search
     @Override
-
     @Transactional
-
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
         SearchSession searchSession = Search.session(entityManager);

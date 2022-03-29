@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -19,6 +18,7 @@ public class FileUploadController {
     @Autowired
     private StorageService storageService;
 
+    // Used for uploading images
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> handleFileUpload(@RequestParam("file") MultipartFile file) {
         String message ="";

@@ -1,5 +1,6 @@
-import { Header } from "components/layout"
+import Header from "../header/Header"
 import "./Layout.css"
+
 const Layout = ({ children }) => {
   return (
     <>

@@ -4,7 +4,6 @@ import com.efakin.springcms.entity.AppUser;
 import com.efakin.springcms.entity.Category;
 import com.efakin.springcms.entity.Post;
 import com.efakin.springcms.repository.AppUserRepository;
-import com.efakin.springcms.repository.PostRepository;
 import com.efakin.springcms.service.CategoryService;
 import com.efakin.springcms.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 
+//TO BE DELETED
 @Component
 public class InitData implements ApplicationRunner {
 
@@ -24,14 +22,13 @@ public class InitData implements ApplicationRunner {
     private PostService postService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private AppUserRepository appUserRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private CategoryService categoryService;
-
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

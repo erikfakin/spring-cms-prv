@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+
+//Used in lists of posts when we are not interested in all the data (for example the content) of a post entity.
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

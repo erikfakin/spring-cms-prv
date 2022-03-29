@@ -23,7 +23,7 @@ const SearchBar = () => {
   return (
     <div className={styles.searchBar}>
       <label>
-        <img className={styles.searchBar__icon} src={searchIcon} onClick={handleOnClick} />
+        <img className={styles.searchBar__icon} src={searchIcon} onClick={handleOnClick} alt="search" />
         <input
           onKeyDown={handleOnKeyDown}
           name="Search"

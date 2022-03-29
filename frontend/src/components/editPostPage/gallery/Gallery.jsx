@@ -1,4 +1,4 @@
-import { get, getProtected, upload } from "adapters/xhr"
+import { getProtected, upload } from "adapters/xhr"
 import { useEffect, useState } from "react"
 
 import Image from "./Image"

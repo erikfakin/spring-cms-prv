@@ -33,9 +33,6 @@ public class Post {
 
     private String author = "author";
 
-    @Column(unique = true)
-    private String url;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createdAt;

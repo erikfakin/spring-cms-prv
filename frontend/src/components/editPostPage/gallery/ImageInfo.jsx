@@ -29,7 +29,7 @@ const ImageInfo = ({ image }) => {
     <div className={styles.imageInfo}>
       {image && <>
         <div className={styles.imageInfo__imageWrapper}>
-          <img className={styles.imageInfo__image} src={image?.src} />
+          <img className={styles.imageInfo__image} src={image?.src} alt={image?.alt} />
         </div>
 
         <TextInput label="Image title" value={title} onChange={(e) => {

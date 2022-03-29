@@ -1,13 +1,12 @@
 import SearchBar from "components/shared/inputs/SearchBar"
 import { useAuth } from "context/authContext"
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import AdminHeader from "./adminHeader/AdminHeader"
+import { Link } from "react-router-dom"
+import AdminHeader from "./AdminHeader"
 
 import styles from "./Header.module.scss"
 
 const Header = () => {
-  let navigate = useNavigate()
-  let location = useLocation()
+
   const auth = useAuth()
 
   return (

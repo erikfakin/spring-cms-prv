@@ -63,7 +63,6 @@ export const upload = async (url, file) => {
     body: file,
   })
   if (!res.ok) {
-    const message = `An error occured: ${res.status}`
     return {
       error: res.status,
     }

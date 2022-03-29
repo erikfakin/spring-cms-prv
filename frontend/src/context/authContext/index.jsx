@@ -1,4 +1,4 @@
-import { get, getProtected, login, post, tokenRefresh } from "adapters/xhr"
+import { login, tokenRefresh } from "adapters/xhr"
 import { createContext, useState, useContext, useEffect } from "react"
 import { isExpired } from "react-jwt"
 
@@ -36,9 +36,7 @@ export const AuthProvider = ({ children }) => {
       refreshTimeout = setTimeout(refreshToken, REFRESH_INTERVAL)
       callback()
     }
-
     return res
-
   }
 
   const signout = (callback) => {

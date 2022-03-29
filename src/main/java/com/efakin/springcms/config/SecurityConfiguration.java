@@ -24,19 +24,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Spring security and CORS configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     AppUserDetailsService appUserDetailsService;
 
-
+    // Initialization of a BCryptPasswordEncoder bean, used for encrypting and decrypting passwords.
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
 
+    // Configures Spring Security to let pass requests for login, posts and categories without authentication.
+    // Add filters for authentication and authorization.
+    // Configures the session management to be stateless, we want to use JWT in the frontend to authenticate the requests.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
@@ -50,9 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
-
-
-
+    // CORS configuration
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
@@ -65,13 +67,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return source;
     }
 
+    // Configures the password encoder to use the bCryptPasswordEncoder
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(appUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
 
     }
-
-
-
 
 }
